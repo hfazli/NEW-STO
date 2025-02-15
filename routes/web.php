@@ -4,14 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AdminAuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DailyController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\FinishedGoodController;
-use App\Http\Controllers\WipController;
-use App\Http\Controllers\CipatController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\FinishedGoodsController;
 use App\Http\Controllers\STOController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InventoryController;
 
 /*
@@ -43,44 +39,39 @@ Route::get('/Login-user', function () {
     return view('Login-user');
 })->name('Login-user');
 
-
 Route::post('/login-user', [UserController::class, 'login'])->name('loginUser');
 
-Route::resource('finished_goods', FinishedGoodController::class);
-
-Route::get('finished_goods/{finished_good}/edit', [FinishedGoodController::class, 'edit'])->name('finished_goods.edit');
-Route::post('finished_goods/import', [FinishedGoodController::class, 'import'])->name('finished_goods.import');
-Route::get('finished_goods/upload', [FinishedGoodController::class, 'showUploadForm'])->name('finished_goods.upload');
-Route::post('finished_goods/upload', [FinishedGoodController::class, 'upload'])->name('finished_goods.upload');
-Route::post('/finished_goods/change_status/{id}', [FinishedGoodController::class, 'changeStatus'])->name('finished_goods.change_status');
-Route::post('finished_goods/{id}/change-status', [FinishedGoodController::class, 'changeStatus'])->name('finished_goods.changeStatus');
-Route::post('/finished_goods', [FinishedGoodController::class, 'store'])->name('finished_goods.store');
-Route::get('/finished_goods', [FinishedGoodController::class, 'index'])->name('finished_goods.index');
-Route::post('/finished_goods/{id}/change-status', [FinishedGoodController::class, 'changeStatus'])->name('finished_goods.changeStatus');
-Route::get('/finished_goods/downloadPdf', [FinishedGoodController::class, 'downloadPdf'])->name('finished_goods.downloadPdf');
-
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/finished-good', [FinishedGoodController::class, 'finishedGood'])->name('finished.good');
 
 Route::resource('users', UserController::class);
 Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::get('/users/{user}/edit-password', [UserController::class, 'editPassword'])->name('users.editPassword');
 Route::post('/users/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 
-Route::resource('wip', WipController::class);
-Route::post('wip/upload', [WipController::class, 'upload'])->name('wip.upload');
-Route::post('/wip/import', [WipController::class, 'import'])->name('wip.import');
-
-Route::resource('cipat', CipatController::class);
-Route::post('cipat/upload', [CipatController::class, 'upload'])->name('cipat.upload');
-
-Route::resource('component_parts', CipatController::class);
-
 Route::get('/reports/fg', [ReportController::class, 'index'])->name('reports.fg');
-
 Route::get('/sto', [STOController::class, 'index'])->name('sto.index');
 
-// Define the inventory store route
+// Define the inventory routes
+Route::resource('inventory', InventoryController::class);
+Route::get('inventory/{inventory}/edit', [InventoryController::class, 'edit'])->name('inventory.edit');
+Route::post('inventory/import', [InventoryController::class, 'import'])->name('inventory.import');
+Route::get('inventory/upload', [InventoryController::class, 'showUploadForm'])->name('inventory.upload');
+Route::post('inventory/upload', [InventoryController::class, 'upload'])->name('inventory.upload');
+Route::post('/inventory/change_status/{id}', [InventoryController::class, 'changeStatus'])->name('inventory.change_status');
+Route::post('inventory/{id}/change-status', [InventoryController::class, 'changeStatus'])->name('inventory.changeStatus');
 Route::post('/inventory', [InventoryController::class, 'store'])->name('inventory.store');
+Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+Route::post('/inventory/{id}/change-status', [InventoryController::class, 'changeStatus'])->name('inventory.changeStatus');
+Route::get('/inventory/downloadPdf', [InventoryController::class, 'downloadPdf'])->name('inventory.downloadPdf');
 
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+
+Route::get('/daily-stok', [DailyController::class, 'index'])->name('daily.index');
+Route::get('/daily-stok/create', [DailyController::class, 'create'])->name('daily.create');
+Route::post('/daily-stok', [DailyController::class, 'store'])->name('daily.store');
+Route::get('/daily-stok/{id}/edit', [DailyController::class, 'edit'])->name('daily.edit');
+Route::put('/daily-stok/{id}', [DailyController::class, 'update'])->name('daily.update');
+Route::delete('/daily-stok/{id}', [DailyController::class, 'destroy'])->name('daily.destroy');
+Route::post('/daily-stok/import', [DailyController::class, 'import'])->name('daily.import');
+
+Route::resource('daily', DailyController::class);

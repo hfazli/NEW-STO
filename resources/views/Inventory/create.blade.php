@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Create FG')
+@section('title', 'Create Inventory')
 
 @section('content')
     <div class="pagetitle">
-        <h1>Created FG KBI</h1>
+        <h1>Create Inventory</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('finished_goods.index') }}">FG</a></li>
-                <li class="breadcrumb-item active">Created FG</li>
+                <li class="breadcrumb-item"><a href="{{ route('inventory.index') }}">Inventory</a></li>
+                <li class="breadcrumb-item active">Create Inventory</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -17,11 +17,11 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Created FG</h5>
+                <h5 class="card-title">Create Inventory</h5>
 
                 <!-- Custom Styled Validation -->
                 <form class="row g-3 needs-validation" novalidate enctype="multipart/form-data" method="POST"
-                    action="{{ route('finished_goods.store') }}">
+                    action="{{ route('inventory.store') }}">
                     @csrf
 
                     <div class="row">
@@ -96,8 +96,8 @@
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="area_fg" class="form-label">Area FG</label>
-                            <input type="text" class="form-control" id="area_fg" name="area_fg" value="{{ old('area_fg') }}">
+                            <label for="detail_lokasi" class="form-label">Detail Lokasi</label>
+                            <input type="text" class="form-control" id="detail_lokasi" name="detail_lokasi" value="{{ old('detail_lokasi') }}">
                         </div>
                     </div>
                     <div class="row">
@@ -107,12 +107,27 @@
                                 <option value="">Select Satuan</option>
                                 <option value="pcs" {{ old('satuan') == 'pcs' ? 'selected' : '' }}>Pcs</option>
                                 <option value="kg" {{ old('satuan') == 'kg' ? 'selected' : '' }}>Kg</option>
-                                <option value="liter" {{ old('satuan') == 'liter' ? 'selected' : '' }}>Liter</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="stok_awal" class="form-label">Stok Awal</label>
                             <input type="number" name="stok_awal" class="form-control" id="stok_awal" value="{{ old('stok_awal') }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="plant" class="form-label">Plant</label>
+                            <input type="text" class="form-control" id="plant" name="plant" value="{{ old('plant') }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="status_product" class="form-label">Status Product</label>
+                            <select class="form-control" id="status_product" name="status_product" required>
+                                <option value="">Select Status Product</option>
+                                <option value="FG" {{ old('status_product') == 'FG' ? 'selected' : '' }}>FG</option>
+                                <option value="WIP" {{ old('status_product') == 'WIP' ? 'selected' : '' }}>WIP</option>
+                                <option value="CHILPART" {{ old('status_product') == 'CHILPART' ? 'selected' : '' }}>CHILPART</option>
+                                <option value="RAW MATERIAL" {{ old('status_product') == 'RAW MATERIAL' ? 'selected' : '' }}>RAW MATERIAL</option>
+                            </select>
                         </div>
                     </div>
 

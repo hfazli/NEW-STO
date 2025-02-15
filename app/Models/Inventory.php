@@ -1,14 +1,15 @@
 <?php
-// filepath: /d:/STO-master/STO-master/app/Models/FinishedGood.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FinishedGood extends Model
+class Inventory extends Model
 {
     use HasFactory;
+
+    protected $table = 'inventory'; // Specify the table name
 
     protected $fillable = [
         'inventory_id',
@@ -18,8 +19,10 @@ class FinishedGood extends Model
         'qty_package',
         'project',
         'customer',
-        'area_fg',
+        'detail_lokasi',
         'satuan',
-        'stok_awal', // New column
+        'stok_awal',
+        'plant',
+        'status_product', // Add this line
     ];
 }
