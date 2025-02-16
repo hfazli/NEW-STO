@@ -102,7 +102,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="satuan" class="form-label">Satuan</label>
+                            <label for="satuan" class="form-label">Unit</label>
                             <select class="form-control" id="satuan" name="satuan" required>
                                 <option value="">Select Satuan</option>
                                 <option value="pcs" {{ old('satuan') == 'pcs' ? 'selected' : '' }}>Pcs</option>

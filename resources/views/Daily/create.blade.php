@@ -27,17 +27,38 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="inventory_id" class="form-label">ID Inventory</label>
-                            <input type="text" class="form-control" id="inventory_id" name="inventory_id" value="{{ old('inventory_id') }}" required>
+                            <select class="form-control" id="inventory_id" name="inventory_id" required>
+                                <option value="">Select Inventory ID</option>
+                                @foreach($inventory as $item)
+                                    <option value="{{ $item->inventory_id }}" {{ old('inventory_id') == $item->inventory_id ? 'selected' : '' }}>
+                                        {{ $item->inventory_id }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="part_name" class="form-label">Part Name</label>
-                            <input type="text" class="form-control" id="part_name" name="part_name" value="{{ old('part_name') }}" required>
+                            <select class="form-control" id="part_name" name="part_name" required>
+                                <option value="">Select Part Name</option>
+                                @foreach($inventory as $item)
+                                    <option value="{{ $item->part_name }}" {{ old('part_name') == $item->part_name ? 'selected' : '' }}>
+                                        {{ $item->part_name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="part_number" class="form-label">Part Number</label>
-                            <input type="text" class="form-control" id="part_number" name="part_number" value="{{ old('part_number') }}" required>
+                            <select class="form-control" id="part_number" name="part_number" required>
+                                <option value="">Select Part Number</option>
+                                @foreach($inventory as $item)
+                                    <option value="{{ $item->part_number }}" {{ old('part_number') == $item->part_number ? 'selected' : '' }}>
+                                        {{ $item->part_number }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="customer" class="form-label">Customer</label>

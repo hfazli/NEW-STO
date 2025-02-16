@@ -68,7 +68,7 @@
                                <th>Project</th>
                                <th>Customer</th>
                                <th>Detail Lokasi</th>
-                               <th>Satuan</th>
+                               <th>Unit</th>
                                <th>Stok Awal</th>
                                <th>Plant</th>
                                <th>Actions</th> <!-- Added Actions column -->

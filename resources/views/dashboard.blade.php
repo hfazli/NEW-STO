@@ -40,19 +40,9 @@
     @include('layouts.header')
 
     <!-- Sidebar -->
-    @include('layouts.sidebar')
+    @include('layouts.sidebar') 
 
     <main id="main" class="main">
-        <div class="pagetitle">
-            <h1>Dashboard</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
-
         <!-- Main content here -->
         <section class="section dashboard">
             <div class="row">
@@ -76,7 +66,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div>  
 
                             <!-- Line Chart -->
                             <div id="reportsChart"></div>
@@ -96,7 +86,7 @@
                             <h5 class="card-title">STO Report</h5>
                             <div id="stoChart" style="min-height: 400px;" class="echart"></div>
                         </div>
-                    </div>
+                     </div>
                 </div>
             </div>
         </section>
@@ -199,6 +189,8 @@
                 stoChart.setOption(stoChartOptions);
             });
         </script>
+        <!-- Add Font Awesome -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
     </main><!-- End #main -->
 
     <!-- End Main Content -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Daily;
 use App\Models\Customer;
+use App\Models\Inventory; // Add this line to import the Inventory model
 use App\Imports\InventoryImport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF; // Ensure you have the barryvdh/laravel-dompdf package installed
@@ -33,8 +34,8 @@ class DailyController extends Controller
 
     public function create()
     {
-        $customers = Customer::all(); // Ambil semua data customer
-        return view('daily.create', compact('customers'));
+        $inventory = Inventory::all(); // Assuming you have an Inventory model
+        return view('Daily.create', compact('inventory'));
     }
 
     public function store(Request $request)
@@ -78,8 +79,8 @@ class DailyController extends Controller
     public function edit($id)
     {
         $daily = Daily::findOrFail($id);
-        $customers = Customer::all();
-        return view('daily.edit', compact('daily', 'customers'));
+        $inventory = Inventory::all(); // Assuming you have an Inventory model
+        return view('Daily.edit', compact('daily', 'inventory'));
     }
 
     public function update(Request $request, $id)

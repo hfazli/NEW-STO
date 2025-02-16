@@ -12,7 +12,7 @@ class STOController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('sto.index', compact('user'));
+        return view('STO.index', compact('user'));
     }
 
     public function showForm()
@@ -25,4 +25,4 @@ class STOController extends Controller
     {
         // Your manage logic here
     }
-}   
+}

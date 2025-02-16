@@ -74,7 +74,7 @@
                         {{-- name --}}
                         <small class="text-muted d-block">
                             <i class="fas fa-user me-1" style="color:#1abc9c;"></i>
-                            {{ $user->name ?? 'Guest' }}
+                            {{ $user->username ?? 'Guest' }}
                         </small>
                         <small class="text-muted d-block">
                             <strong style="color: #bdc3c7">

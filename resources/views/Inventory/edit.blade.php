@@ -142,9 +142,9 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="satuan" class="form-label">Satuan</label>
+                        <label for="satuan" class="form-label">Unit</label>
                         <select name="satuan" class="form-control @error('satuan') is-invalid @enderror" id="satuan" required>
-                            <option value="">Select Satuan</option>
+                            <option value="">Select Unit</option>
                             <option value="pcs" {{ old('satuan', $inventory->satuan) == 'pcs' ? 'selected' : '' }}>Pcs</option>
                             <option value="kg" {{ old('satuan', $inventory->satuan) == 'kg' ? 'selected' : '' }}>Kg</option>
                         </select>
