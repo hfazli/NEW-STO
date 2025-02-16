@@ -17,39 +17,17 @@
         rel="stylesheet">
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/bootstrap-icons/zbootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/form.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/loader.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <style>
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #282828; /* Solid background color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-    </style>
 </head>
 
 <body>
-    {{-- loader --}}
-    <div class="loader" id="loader">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    {{-- loader --}}
     <section class="section">
         <div class="card shadow-sm">
             <div class="card-body p-4">
@@ -107,25 +85,81 @@
                     </form>
                 </div>
             </div>
-            <div class="text-center">
-                <img id="noDataImage" src="{{ asset('assets/img/Scan-Barcode.png') }}"
-                    class="animated-image img-fluid py-3" loading="lazy"
-                    style="max-width: 28%; height: auto; object-fit: fill; cursor: pointer;" alt="Page Not Found">
+          
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h5 class="card-title mb-3" style="font-size: 1.5rem; font-weight: bold; color: #333;">Inventory Details</h5>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="partName" class="form-label">Part Name</label>
+                        <input type="text" class="form-control" id="partName" value="{{ $inventory->part_name ?? '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="partNumber" class="form-label">Part Number</label>
+                        <input type="text" class="form-control" id="partNumber" value="{{ $inventory->part_no ?? '' }}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="inventoryCode" class="form-label">Inventory Code</label>
+                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->inventory_id ?? '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="statusProduct" class="form-label">Status Product</label>
+                        <input type="text" class="form-control" id="statusProduct" value="{{ $inventory->status_product ?? '' }}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="qtyPerBox" class="form-label">Qty Per Box</label>
+                        <input type="text" class="form-control" id="qtyPerBox" value="{{ $inventory->qty_per_box ?? '' }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="qtyBoxTotal" class="form-label">Qty Box </label>
+                        <input type="text" class="form-control" id="qtyBoxTotal" value="{{ $inventory->qtybox ?? '' }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="total" class="form-label">Total</label>
+                        <input type="text" class="form-control" id="total" value="{{ $inventory->total ?? '' }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="grandTotal" class="form-label">Grand Total</label>
+                        <input type="text" class="form-control" id="grandTotal" value="{{ $inventory->grand_total ?? '' }}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="issueDate" class="form-label">Issue Date</label>
+                        <input type="text" class="form-control" id="issueDate" value="{{ $inventory->issue_date ?? '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="preparedBy" class="form-label">Prepared By</label>
+                        <input type="text" class="form-control" id="preparedBy" value="{{ $inventory->prepared_by ?? '' }}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="checkedBy" class="form-label">Checked By</label>
+                        <input type="text" class="form-control" id="checkedBy" value="{{ $inventory->checked_by ?? '' }}">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    {{-- jsload --}}
-    <script>
-        window.addEventListener('load', function() {
-            // Sembunyikan loader setelah halaman selesai dimuat
-            document.getElementById('loader').style.display = 'none';
-        });
-    </script>
     {{-- reload with ajax  --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -143,7 +177,7 @@
                 });
             }
             // Fungsi untuk menampilkan alert dengan waktu otomatis hilang
-            function showAlert(alertId) {
+            function showAlert(alertId) { 
                 const alertBox = document.getElementById(alertId);
                 if (alertBox) {
                     alertBox.style.display = 'block';

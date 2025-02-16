@@ -50,6 +50,7 @@ Route::post('/users/{user}/update-password', [UserController::class, 'updatePass
 
 Route::get('/reports/fg', [ReportController::class, 'index'])->name('reports.fg');
 Route::get('/sto', [STOController::class, 'index'])->name('sto.index');
+Route::get('/scan-sto', [InventoryController::class, 'showForm'])->name('scan-sto');
 
 // Define the inventory routes
 Route::resource('inventory', InventoryController::class);
@@ -63,7 +64,6 @@ Route::post('/inventory', [InventoryController::class, 'store'])->name('inventor
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 Route::post('/inventory/{id}/change-status', [InventoryController::class, 'changeStatus'])->name('inventory.changeStatus');
 Route::get('/inventory/downloadPdf', [InventoryController::class, 'downloadPdf'])->name('inventory.downloadPdf');
-
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 
 Route::get('/daily-stok', [DailyController::class, 'index'])->name('daily.index');
@@ -75,3 +75,5 @@ Route::delete('/daily-stok/{id}', [DailyController::class, 'destroy'])->name('da
 Route::post('/daily-stok/import', [DailyController::class, 'import'])->name('daily.import');
 
 Route::resource('daily', DailyController::class);
+
+Route::get('/form', [STOController::class, 'showForm'])->name('form');
