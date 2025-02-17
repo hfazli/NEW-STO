@@ -32,8 +32,8 @@
                 <!-- Penanda Login -->
                 <div class="navbar-form d-flex justify-content-between align-items-center mb-1 p-2 rounded">
                     <h5 class="card-title" style="font-size: 1.5rem; font-weight: bold; color: #ffff;">
-                        <i class="fas fa-box-open me-2"></i> STO inventor Scan
-                        @if (isset($inventory) && $inventory->isNotEmpty())
+                        <i class="fas fa-box-open me-2"></i> STO Inventory Scan
+                        @if (isset($inventory) && $inventory->count() > 0)
                             <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color: #e67e22;">
                                 <i class="fas fa-file-invoice"></i>&nbsp;&nbsp;Inventory ID&nbsp;:&nbsp;
                                 <strong style="width: 5px; font-size: 20px; color: #e0e0e0; padding: 1px; text-transform: uppercase;">
@@ -73,9 +73,9 @@
                     <form>
                         @csrf
                         <div class="col-12 mb-2">
-                            <label for="partNumberInput" class="form-label" style="font-size: 1.1rem;">Inventory Number (Scan QR)</label>
+                            <label for="InventoryInput" class="form-label" style="font-size: 1.1rem;">Inventory Number (Scan QR)</label>
                             <div class="input-group">
-                                <input type="text" name="part_number" class="form-control" id="partNumberInput" required autofocus>
+                                <input type="text" name="part_number" class="form-control" id="InventoryInput" required autofocus>
                             </div>
                         </div>
                         <div class="col-12">
@@ -100,19 +100,19 @@
                         <div class="col-md-12">
                             <div class="card p-3">
                                 <div class="row mb-3">
-                                    <label for="partName" class="col-sm-2 col-form-label">Part Name</label>
+                                    <label for="partName" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Part Name</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="partName" value="{{ $inventory->part_name ?? '' }}">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="partNumber" class="col-sm-2 col-form-label">Part Number</label>
+                                    <label for="partNumber" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Part Number</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="partNumber" value="{{ $inventory->part_no ?? '' }}">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="inventoryCode" class="col-sm-2 col-form-label">Inventory Code</label>
+                                    <label for="inventoryCode" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Inventory Code</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->inventory_id ?? '' }}">
                                     </div>
@@ -174,17 +174,17 @@
                                     }
                                 </style>
                                 <div class="row mb-3">
-                                    <label for="inventoryCode" class="col-sm-2 col-form-label">Issue Date</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->issue_date ?? '' }}">
+                                    <div class="col-md-4">
+                                        <label for="issueDate" class="form-label">Issue Date</label>
+                                        <input type="text" class="form-control" id="issueDate" value="{{ $inventory->issue_date ?? '' }}">
                                     </div>
-                                    <label for="inventoryCode" class="col-sm-2 col-form-label">Date</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->issue_date ?? '' }}">
+                                    <div class="col-md-4">
+                                        <label for="preparedBy" class="form-label">Prepared By</label>
+                                        <input type="text" class="form-control" id="preparedBy" value="{{ $inventory->prepared_by ?? '' }}">
                                     </div>
-                                    <label for="inventoryCode" class="col-sm-2 col-form-label">Issue Date</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->issue_date ?? '' }}">
+                                    <div class="col-md-4">
+                                        <label for="checkedBy" class="form-label">Checked By</label>
+                                        <input type="text" class="form-control" id="checkedBy" value="{{ $inventory->checked_by ?? '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -207,15 +207,16 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Auto-focus pada input ketika halaman dimuat
-            const partNumberInput = document.getElementById('partNumberInput');
+            const InventoryInput = document.getElementById('InventoryInput');
             const form = document.getElementById('autoSubmitForm');
 
-            if (partNumberInput) {
-                partNumberInput.focus(); // Fokus pada input saat halaman dimuat
+            if (InventoryInput) {
+                InventoryInput.focus(); // Fokus pada input saat halaman dimuat
 
-                document.addEventListener('click', function(event) {
-                    if (event.target !== partNumberInput) {
-                        partNumberInput.focus();
+                // Hapus event listener yang memfokuskan kembali ke InventoryInput
+                document.removeEventListener('click', function(event) {
+                    if (event.target !== InventoryInput) {
+                        InventoryInput.focus();
                     }
                 });
             }
@@ -255,7 +256,7 @@
                 timer = setTimeout(() => func.apply(this, args), delay);
             };
         }
-        document.getElementById('Inventory_').addEventListener('input', debounce(resetTimer, 500));
+        document.getElementById('InventoryInput').addEventListener('input', debounce(resetTimer, 500));
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

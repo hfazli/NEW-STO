@@ -165,4 +165,27 @@ class InventoryController extends Controller
             return response()->json(['success' => false, 'message' => 'Inventory tidak ditemukan.']);
         }
     }
+
+    public function scanInventory(Request $request)
+    {
+        $inventoryId = $request->input('inventory_id');
+        $inventory = Inventory::where('inventory_id', $inventoryId)->first();
+
+        if ($inventory) {
+            return response()->json(['success' => true, 'inventory' => $inventory]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Inventory not found']);
+        }
+    }
+
+    public function showForm($inventory_id)
+    {
+        $inventory = Inventory::where('inventory_id', $inventory_id)->first();
+
+        if ($inventory) {
+            return view('STO.from', compact('inventory'));
+        } else {
+            return redirect()->route('sto.index')->with('notfound', 'Inventory not found');
+        }
+    }
 }

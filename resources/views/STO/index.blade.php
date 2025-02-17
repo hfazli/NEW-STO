@@ -12,9 +12,7 @@
     <link href="{{ asset('assets/img/icon-kbi.png') }}" rel="icon">
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
@@ -26,6 +24,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Tambahkan SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         .loader {
             position: fixed;
@@ -59,14 +59,12 @@
                         <i class="fas fa-warehouse me-2"></i> Scan STO
                     </h5>
                     @if (session('success'))
-                        <div id="alertSuccess" class="alert alert-success alert-dismissible fade show mt-1 p-1"
-                            role="alert">
+                        <div id="alertSuccess" class="alert alert-success alert-dismissible fade show mt-1 p-1" role="alert">
                             {{ session('success') }}
                         </div>
                     @endif
                     @if (session('notfound'))
-                        <div id="alertNotFound" class="alert alert-danger alert-dismissible fade show mt-1 p-1"
-                            role="alert">
+                        <div id="alertNotFound" class="alert alert-danger alert-dismissible fade show mt-1 p-1" role="alert">
                             {{ session('notfound') }}
                         </div>
                     @endif
@@ -89,27 +87,22 @@
                 </div>
                 <div class="card p-4 shadow-lg" style="margin-bottom: -10px">
                     <!-- Form Packing -->
-                    <form>
+                    <form id="scanForm">
                         @csrf
                         <div class="col-12 mb-2">
-                            <label for="partNumberInput" class="form-label" style="font-size: 1.1rem;">Inventory ID
-                                (Scan QR)</label>
+                            <label for="InventoryInput" class="form-label" style="font-size: 1.1rem;">Inventory ID (Scan QR)</label>
                             <div class="input-group">
-                                <input type="text" name="part_number" class="form-control" id="partNumberInput"
-                                    required autofocus>
+                                <input type="text" name="inventory_id" class="form-control" id="InventoryInput" required autofocus>
                             </div>
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary btn-lg w-100" type="submit" id="">Show</button>
                         </div>
-                        <input type="hidden" name="action" value="show" id="actionField">
                     </form>
                 </div>
             </div>
             <div class="text-center">
-                <img id="noDataImage" src="{{ asset('assets/img/Scan-Barcode.png') }}"
-                    class="animated-image img-fluid py-3" loading="lazy"
-                    style="max-width: 28%; height: auto; object-fit: fill; cursor: pointer;" alt="Page Not Found">
+                <img id="noDataImage" src="{{ asset('assets/img/Scan-Barcode.png') }}" class="animated-image img-fluid py-3" loading="lazy" style="max-width: 28%; height: auto; object-fit: fill; cursor: pointer;" alt="Page Not Found">
             </div>
         </div>
     </section>
@@ -118,6 +111,8 @@
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <!-- Tambahkan SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- jsload --}}
     <script>
         window.addEventListener('load', function() {
@@ -129,18 +124,46 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Auto-focus pada input ketika halaman dimuat
-            const partNumberInput = document.getElementById('partNumberInput');
-            const form = document.getElementById('autoSubmitForm');
+            const InventoryInput = document.getElementById('InventoryInput');
+            const form = document.getElementById('scanForm');
 
-            if (partNumberInput) {
-                partNumberInput.focus(); // Fokus pada input saat halaman dimuat
+            if (InventoryInput) {
+                InventoryInput.focus(); // Fokus pada input saat halaman dimuat
 
                 document.addEventListener('click', function(event) {
-                    if (event.target !== partNumberInput) {
-                        partNumberInput.focus();
+                    if (event.target !== InventoryInput) {
+                        InventoryInput.focus();
                     }
                 });
             }
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const inventoryId = InventoryInput.value;
+
+                fetch('{{ route('scan.inventory') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ inventory_id: inventoryId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '{{ url('/sto-form') }}/' + data.inventory.inventory_id;
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Inventory not found',
+                            text: data.message,
+                        });
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
             // Fungsi untuk menampilkan alert dengan waktu otomatis hilang
             function showAlert(alertId) {
                 const alertBox = document.getElementById(alertId);
@@ -177,7 +200,7 @@
                 timer = setTimeout(() => func.apply(this, args), delay);
             };
         }
-        document.getElementById('partNumberInput').addEventListener('input', debounce(resetTimer, 500));
+        document.getElementById('InventoryInput').addEventListener('input', debounce(resetTimer, 500));
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

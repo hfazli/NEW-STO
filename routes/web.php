@@ -77,3 +77,7 @@ Route::post('/daily-stok/import', [DailyController::class, 'import'])->name('dai
 Route::resource('daily', DailyController::class);
 
 Route::get('/form', [STOController::class, 'showForm'])->name('form');
+
+Route::post('/scan-inventory', [InventoryController::class, 'scanInventory'])->name('scan.inventory');
+
+Route::get('/sto-form/{inventory_id}', [InventoryController::class, 'showForm'])->name('sto.form');
