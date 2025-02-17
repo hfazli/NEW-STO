@@ -12,9 +12,7 @@
     <link href="{{ asset('assets/img/icon-kbi.png') }}" rel="icon">
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
@@ -32,24 +30,29 @@
         <div class="card shadow-sm">
             <div class="card-body p-4">
                 <!-- Penanda Login -->
-                <div class="navbar-form d-flex justify-content-between align-items-center mb-1 p-1  rounded">
-                    <h5 class="card-title mb-0" style="font-size: 1.5rem; font-weight: bold; color: #ffff;">
-                        <i class="fas fa-warehouse me-2"></i> Scan STO
+                <div class="navbar-form d-flex justify-content-between align-items-center mb-1 p-2 rounded">
+                    <h5 class="card-title" style="font-size: 1.5rem; font-weight: bold; color: #ffff;">
+                        <i class="fas fa-box-open me-2"></i> STO inventor Scan
+                        @if (isset($inventory) && $inventory->isNotEmpty())
+                            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color: #e67e22;">
+                                <i class="fas fa-file-invoice"></i>&nbsp;&nbsp;Inventory ID&nbsp;:&nbsp;
+                                <strong style="width: 5px; font-size: 20px; color: #e0e0e0; padding: 1px; text-transform: uppercase;">
+                                    {{ $inventory->first()->inventory_id ?? 'Not Available' }}
+                                </strong>
+                            </p>
+                        @endif
                     </h5>
                     @if (session('success'))
-                        <div id="alertSuccess" class="alert alert-success alert-dismissible fade show mt-1 p-1"
-                            role="alert">
+                        <div id="alertSuccess" class="alert alert-success alert-dismissible fade show mt-1 p-1" role="alert">
                             {{ session('success') }}
                         </div>
                     @endif
                     @if (session('notfound'))
-                        <div id="alertNotFound" class="alert alert-danger alert-dismissible fade show mt-1 p-1"
-                            role="alert">
+                        <div id="alertNotFound" class="alert alert-danger alert-dismissible fade show mt-1 p-1" role="alert">
                             {{ session('notfound') }}
                         </div>
                     @endif
                     <div class="text-end">
-                        {{-- name --}}
                         <small class="text-muted d-block">
                             <i class="fas fa-user me-1" style="color:#1abc9c;"></i>
                             {{ $user->username ?? 'Guest' }}
@@ -63,7 +66,6 @@
                                 @endif
                             </strong>
                         </small>
-                        
                     </div>
                 </div>
                 <div class="card p-4 shadow-lg" style="margin-bottom: -10px">
@@ -71,11 +73,9 @@
                     <form>
                         @csrf
                         <div class="col-12 mb-2">
-                            <label for="partNumberInput" class="form-label" style="font-size: 1.1rem;">Inventory ID
-                                (Scan QR)</label>
+                            <label for="partNumberInput" class="form-label" style="font-size: 1.1rem;">Inventory Number (Scan QR)</label>
                             <div class="input-group">
-                                <input type="text" name="part_number" class="form-control" id="partNumberInput"
-                                    required autofocus>
+                                <input type="text" name="part_number" class="form-control" id="partNumberInput" required autofocus>
                             </div>
                         </div>
                         <div class="col-12">
@@ -85,72 +85,115 @@
                     </form>
                 </div>
             </div>
-          
         </div>
     </section>
-
+    
     <section class="section">
         <div class="card shadow-sm">
             <div class="card-body p-4">
-                <h5 class="card-title mb-3" style="font-size: 1.5rem; font-weight: bold; color: #333;">Inventory Details</h5>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="partName" class="form-label">Part Name</label>
-                        <input type="text" class="form-control" id="partName" value="{{ $inventory->part_name ?? '' }}">
+                <h1 class="card-title mb-1 text-left" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">PT Kyoraku Blowmolding Indonesia</h1>
+                <h1 class="card-title mb-1 text-left" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">PPIC DEPARTEMENT/WAREHOUSE SECTION</h1>
+                <h5 class="card-title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">Inventory Card</h5>
+                <form>
+                    @csrf
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <div class="row mb-3">
+                                    <label for="partName" class="col-sm-2 col-form-label">Part Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="partName" value="{{ $inventory->part_name ?? '' }}">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="partNumber" class="col-sm-2 col-form-label">Part Number</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="partNumber" value="{{ $inventory->part_no ?? '' }}">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inventoryCode" class="col-sm-2 col-form-label">Inventory Code</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->inventory_id ?? '' }}">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="statusProduct" class="col-sm-2 col-form-label">Status Product</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check form-check-inline me-4">
+                                            <input class="form-check-input" type="radio" name="status_product" id="statusProductNG" value="NG" {{ isset($inventory) && $inventory->status_product == 'NG' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="statusProductNG">NG</label>
+                                        </div>
+                                        <div class="form-check form-check-inline me-4">
+                                            <input class="form-check-input" type="radio" name="status_product" id="statusProductWIP" value="WIP" {{ isset($inventory) && $inventory->status_product == 'WIP' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="statusProductWIP">WIP</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="status_product" id="statusProductFG" value="FG" {{ isset($inventory) && $inventory->status_product == 'FG' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="statusProductFG">FG</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-container">
+                                    <label>QTY/BOX</label>
+                                    <label>QTY BOX</label>
+                                    <label>TOTAL</label>
+                                    <label>GRAND TOTAL</label>
+                                    <input type="text" class="form-control" id="qtyPerBox" value="{{ $inventory->qty_per_box ?? '' }}">
+                                    <input type="text" class="form-control" id="qtyBoxTotal" value="{{ $inventory->qtybox ?? '' }}">
+                                    <input type="text" class="form-control" id="total" value="{{ $inventory->total ?? '' }}" readonly>
+                                    <input type="text" class="form-control" id="grandTotal" value="{{ $inventory->grand_total ?? '' }}" readonly>
+                                    <input type="text" class="form-control" id="qtyPerBox2" value="{{ $inventory->qty_per_box2 ?? '' }}">
+                                    <input type="text" class="form-control" id="qtyBoxTotal2" value="{{ $inventory->qtybox2 ?? '' }}">
+                                    <input type="text" class="form-control" id="total2" value="{{ $inventory->total2 ?? '' }}" readonly>
+                                </div>
+
+                                <style>
+                                    .grid-container {
+                                        display: grid;
+                                        grid-template-columns: repeat(4, 1fr);
+                                        gap: 10px;
+                                        margin-top: 20px;
+                                        border: 1px solid #ccc; /* Add border around the grid container */
+                                        padding: 10px; /* Add padding inside the border */
+                                    }
+                                    .grid-container label {
+                                        font-weight: bold;
+                                        color: #ffffff;
+                                        border-right: 1px solid #ccc; /* Add right border to labels */
+                                        padding-right: 10px; /* Add padding to the right of labels */
+                                    }
+                                    .grid-container input {
+                                        margin-bottom: 10px;
+                                        border: 1px solid #ccc; /* Add border around the input fields */
+                                        padding-right: 10px; /* Add padding to the right of input fields */
+                                    }
+                                    .grid-container label:last-child,
+                                    .grid-container input:last-child {
+                                        border-right: none; /* Remove right border from the last item */
+                                    }
+                                </style>
+                                <div class="row mb-3">
+                                    <label for="inventoryCode" class="col-sm-2 col-form-label">Issue Date</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->issue_date ?? '' }}">
+                                    </div>
+                                    <label for="inventoryCode" class="col-sm-2 col-form-label">Date</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->issue_date ?? '' }}">
+                                    </div>
+                                    <label for="inventoryCode" class="col-sm-2 col-form-label">Issue Date</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->issue_date ?? '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="partNumber" class="form-label">Part Number</label>
-                        <input type="text" class="form-control" id="partNumber" value="{{ $inventory->part_no ?? '' }}">
+                    <div class="text-center">
+                        <button class="btn btn-success btn-lg" type="submit">Save</button>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="inventoryCode" class="form-label">Inventory Code</label>
-                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->inventory_id ?? '' }}">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="statusProduct" class="form-label">Status Product</label>
-                        <input type="text" class="form-control" id="statusProduct" value="{{ $inventory->status_product ?? '' }}">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="qtyPerBox" class="form-label">Qty Per Box</label>
-                        <input type="text" class="form-control" id="qtyPerBox" value="{{ $inventory->qty_per_box ?? '' }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="qtyBoxTotal" class="form-label">Qty Box </label>
-                        <input type="text" class="form-control" id="qtyBoxTotal" value="{{ $inventory->qtybox ?? '' }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="total" class="form-label">Total</label>
-                        <input type="text" class="form-control" id="total" value="{{ $inventory->total ?? '' }}">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="grandTotal" class="form-label">Grand Total</label>
-                        <input type="text" class="form-control" id="grandTotal" value="{{ $inventory->grand_total ?? '' }}">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="issueDate" class="form-label">Issue Date</label>
-                        <input type="text" class="form-control" id="issueDate" value="{{ $inventory->issue_date ?? '' }}">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="preparedBy" class="form-label">Prepared By</label>
-                        <input type="text" class="form-control" id="preparedBy" value="{{ $inventory->prepared_by ?? '' }}">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="checkedBy" class="form-label">Checked By</label>
-                        <input type="text" class="form-control" id="checkedBy" value="{{ $inventory->checked_by ?? '' }}">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-                </div>
+                </form>
             </div>
         </div>
     </section>
@@ -212,7 +255,7 @@
                 timer = setTimeout(() => func.apply(this, args), delay);
             };
         }
-        document.getElementById('partNumberInput').addEventListener('input', debounce(resetTimer, 500));
+        document.getElementById('Inventory_').addEventListener('input', debounce(resetTimer, 500));
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -236,6 +279,35 @@
                 }
             }, 2000);
         @endif
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const qtyPerBox = document.getElementById('qtyPerBox');
+            const qtyBoxTotal = document.getElementById('qtyBoxTotal');
+            const total = document.getElementById('total');
+            const grandTotal = document.getElementById('grandTotal');
+            const qtyPerBox2 = document.getElementById('qtyPerBox2');
+            const qtyBoxTotal2 = document.getElementById('qtyBoxTotal2');
+            const total2 = document.getElementById('total2');
+
+            function calculateTotals() {
+                const qtyPerBoxValue = parseFloat(qtyPerBox.value) || 0;
+                const qtyBoxTotalValue = parseFloat(qtyBoxTotal.value) || 0;
+                const qtyPerBox2Value = parseFloat(qtyPerBox2.value) || 0;
+                const qtyBoxTotal2Value = parseFloat(qtyBoxTotal2.value) || 0;
+
+                total.value = qtyPerBoxValue * qtyBoxTotalValue;
+                total2.value = qtyPerBox2Value * qtyBoxTotal2Value;
+                grandTotal.value = parseFloat(total.value) + parseFloat(total2.value);
+            }
+
+            qtyPerBox.addEventListener('input', calculateTotals);
+            qtyBoxTotal.addEventListener('input', calculateTotals);
+            qtyPerBox2.addEventListener('input', calculateTotals);
+            qtyBoxTotal2.addEventListener('input', calculateTotals);
+
+            calculateTotals(); // Initial calculation
+        });
     </script>
 </body>
 
