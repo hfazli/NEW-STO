@@ -33,7 +33,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #282828; /* Solid background color */
+            brackground: #282828; /* Solid background color */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -72,7 +72,7 @@
                         {{-- name --}}
                         <small class="text-muted d-block">
                             <i class="fas fa-user me-1" style="color:#1abc9c;"></i>
-                            {{ $user->name ?? 'Guest' }}
+                            {{ $user->username ?? 'Guest' }}
                         </small>
                         <small class="text-muted d-block">
                             <strong style="color: #bdc3c7">
@@ -94,6 +94,12 @@
                             <div class="input-group">
                                 <input type="text" name="inventory_id" class="form-control" id="InventoryInput" required autofocus>
                             </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <button class="btn btn-secondary btn-lg w-100" type="button" id="openCameraButton">Open Camera</button>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <video id="cameraStream" width="100%" height="auto" style="display: none;" autoplay></video>
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary btn-lg w-100" type="submit" id="">Show</button>
@@ -201,6 +207,25 @@
             };
         }
         document.getElementById('InventoryInput').addEventListener('input', debounce(resetTimer, 500));
+    </script>
+    <script>
+        document.getElementById('openCameraButton').addEventListener('click', function() {
+            const video = document.getElementById('cameraStream');
+            video.style.display = 'block';
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                })
+                .catch(error => {
+                    console.error('Error accessing camera:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Camera Error',
+                        text: 'Unable to access the camera. Please check your permissions and try again.',
+                    });
+                });
+        });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

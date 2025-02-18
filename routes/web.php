@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\STOController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\YourController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,3 +82,5 @@ Route::get('/form', [STOController::class, 'showForm'])->name('form');
 Route::post('/scan-inventory', [InventoryController::class, 'scanInventory'])->name('scan.inventory');
 
 Route::get('/sto-form/{inventory_id}', [InventoryController::class, 'showForm'])->name('sto.form');
+
+Route::post('/validasi', [YourController::class, 'validasi'])->name('validasi');

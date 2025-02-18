@@ -136,7 +136,7 @@
                         <form action="{{ route('loginUser') }}" method="POST" id="partNumberForm">
                             @csrf
                             <div class="mb-4">
-                                <label for="partNumberInput" class="form-label">ID Card Number</label>
+                                <label for="IdCardNumberInput" class="form-label">ID Card Number</label>
                                 <div class="input-group">
                                     <input type="text" name="id_card_number" class="form-control" id="partNumberInput"
                                         placeholder="Silahkan scan barcode" required autofocus>
@@ -178,7 +178,7 @@
         function onScanSuccess(decodedText) {
             console.log(`Code matched: ${decodedText}`);
             // Set the scanned text to the input field
-            document.getElementById('partNumberInput').value = decodedText;
+            document.getElementById('IdCardNumberInput').value = decodedText;
             // Send the scanned ID card number to the server for validation
             $.ajax({
                 url: '{{ route('sto.index') }}',   
