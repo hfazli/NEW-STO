@@ -11,6 +11,7 @@ use App\Http\Controllers\STOController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\YourController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,4 +84,8 @@ Route::post('/scan-inventory', [InventoryController::class, 'scanInventory'])->n
 
 Route::get('/sto-form/{inventory_id}', [InventoryController::class, 'showForm'])->name('sto.form');
 
-Route::post('/validasi', [YourController::class, 'validasi'])->name('validasi');
+// Route::post('/validasi', [YourController::class, 'validasi'])->name('validasi');
+
+Route::get('/sto/index', [STOController::class, 'index'])->name('sto.index');
+Route::get('/sto/form', [STOController::class, 'form'])->name('sto.form');
+Route::get('/login', [STOController::class, 'showLoginForm'])->name('login'); // Contoh rute login

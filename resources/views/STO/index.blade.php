@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- Tambahkan SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Tambahkan html5-qrcode CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.css">
     <style>
         .loader {
             position: fixed;
@@ -33,7 +35,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            brackground: #282828; /* Solid background color */
+            background: #282828; /* Solid background color */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -70,9 +72,9 @@
                     @endif
                     <div class="text-end">
                         {{-- name --}}
-                        <small class="text-muted d-block">
-                            <i class="fas fa-user me-1" style="color:#1abc9c;"></i>
+                        <small class="text-muted d-block" style="font-size: 1.2rem; color: #ffffff;">
                             {{ $user->username ?? 'Guest' }}
+                            <i class="fas fa-user me-1" style="color:#1abc9c;"></i>
                         </small>
                         <small class="text-muted d-block">
                             <strong style="color: #bdc3c7">
@@ -96,10 +98,10 @@
                             </div>
                         </div>
                         <div class="col-12 mb-2">
-                            <button class="btn btn-secondary btn-lg w-100" type="button" id="openCameraButton">Open Camera</button>
+                            <button class="btn btn-success btn-lg w-100" type="button" id="openCameraButton">Open Camera</button>
                         </div>
                         <div class="col-12 mb-2">
-                            <video id="cameraStream" width="100%" height="auto" style="display: none;" autoplay></video>
+                            <div id="qr-reader" style="width: 100%;"></div>
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary btn-lg w-100" type="submit" id="">Show</button>
@@ -119,6 +121,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <!-- Tambahkan SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Tambahkan html5-qrcode JS -->
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
     {{-- jsload --}}
     <script>
         window.addEventListener('load', function() {
@@ -210,21 +214,33 @@
     </script>
     <script>
         document.getElementById('openCameraButton').addEventListener('click', function() {
-            const video = document.getElementById('cameraStream');
-            video.style.display = 'block';
-
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    video.srcObject = stream;
-                })
-                .catch(error => {
-                    console.error('Error accessing camera:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Camera Error',
-                        text: 'Unable to access the camera. Please check your permissions and try again.',
-                    });
+            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+                // Handle the decoded text
+                document.getElementById('InventoryInput').value = decodedText;
+                html5QrCode.stop().then(ignore => {
+                    // QR Code scanning is stopped.
+                }).catch(err => {
+                    // Stop failed, handle it.
                 });
+            };
+
+            const html5QrCode = new Html5Qrcode("qr-reader");
+            html5QrCode.start(
+                { facingMode: "environment" }, // camera facing mode
+                {
+                    fps: 10,    // Optional, frame per seconds for qr code scanning
+                    qrbox: { width: 250, height: 250 }  // Optional, if you want bounded box UI
+                },
+                qrCodeSuccessCallback
+            ).catch(err => {
+                // Start failed, handle it.
+                console.error('Error starting QR code scanner:', err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Camera Error',
+                    text: 'Unable to start the QR code scanner. Please check your permissions and try again.',
+                });
+            });
         });
     </script>
     <script>

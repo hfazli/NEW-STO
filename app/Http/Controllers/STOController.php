@@ -10,22 +10,34 @@ use App\Models\Inventory; // Import the Inventory model
 
 class STOController extends Controller
 {
+    // Method untuk halaman index
     public function index()
     {
-        $user = Auth::user();
-        return view('STO.index', compact('user'));
-    }
-    
-    public function showForm(Request $request)
-    {
-        $user = auth()->user();
-        $inventory = null;
-
-        if ($request->has('part_number')) {
-            $inventory = Inventory::where('part_number', $request->input('part_number'))->first();
+        // Periksa apakah pengguna sudah login
+        if (!Auth::check()) {
+            return redirect()->route('login'); // Redirect ke halaman login jika belum login
         }
 
-        return view('STO.from', compact('user', 'inventory'));
+        // Ambil data yang diperlukan untuk halaman index
+        $user = Auth::user();
+        $inventory = Inventory::all(); // Contoh pengambilan data inventory
+
+        return view('sto.index', compact('user', 'inventory'));
+    }
+
+    // Method untuk halaman form
+    public function form()
+    {
+        // Periksa apakah pengguna sudah login
+        if (!Auth::check()) {
+            return redirect()->route('login'); // Redirect ke halaman login jika belum login
+        }
+
+        // Ambil data yang diperlukan untuk halaman form
+        $user = Auth::user();
+        $inventory = Inventory::all(); // Contoh pengambilan data inventory
+
+        return view('sto.form', compact('user', 'inventory'));
     }
 
     public function manage(Request $request, $id)

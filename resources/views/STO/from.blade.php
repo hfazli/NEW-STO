@@ -53,9 +53,10 @@
                         </div>
                     @endif
                     <div class="text-end">
-                        <small class="text-muted d-block">
-                            <i class="fas fa-user me-1" style="color:#1abc9c;"></i>
+                        {{-- name --}}
+                        <small class="text-muted d-block" style="font-size: 1.2rem; color: #ffffff;">
                             {{ $user->username ?? 'Guest' }}
+                            <i class="fas fa-user me-1" style="color:#1abc9c;"></i>
                         </small>
                         <small class="text-muted d-block">
                             <strong style="color: #bdc3c7">
@@ -180,11 +181,11 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="preparedBy" class="form-label">Prepared By</label>
-                                        <input type="text" class="form-control" id="preparedBy" value="{{ $inventory->prepared_by ?? '' }}">
+                                        <input type="text" class="form-control" id="preparedBy" value="{{ $user->username ?? '' }}">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="checkedBy" class="form-label">Checked By</label>
-                                        <input type="text" class="form-control" id="checkedBy" value="{{ $inventory->checked_by ?? '' }}">
+                                        <input type="text" class="form-control" id="checkedBy" value="{{ $admin->username ?? '' }}">
                                     </div>
                                 </div>
                             </div>
