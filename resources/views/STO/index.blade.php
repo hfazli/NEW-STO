@@ -110,10 +110,13 @@
                 </div>
             </div>
             <div class="text-center">
-                <img id="noDataImage" src="{{ asset('assets/img/Scan-Barcode.png') }}" class="animated-image img-fluid py-3" loading="lazy" style="max-width: 28%; height: auto; object-fit: fill; cursor: pointer;" alt="Page Not Found">
+                <img id="noDataImage" src="{{ asset('assets/img/Scan-Barcode.png') }}" class="animated-image img-fluid py-3" loading="lazy" style="max-width: 100%; height: auto; object-fit: fill; cursor: pointer;" alt="Page Not Found">
             </div>
         </div>
     </section>
+    <footer class="text-center mt-4">
+        <p>&copy; STO MANAGEMENT 2025</p>
+    </footer>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
     <!-- Template Main JS File -->

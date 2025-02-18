@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         .page-wrapper {
             background-color: #f8f9fa;
@@ -159,11 +160,10 @@
                         <div class="camera-wrapper">
                             <div id="reader" style="display: none;"></div>
                         </div>
-
-                        <div class="copyright mt-3">
-                            &copy; STO MANAGEMENT SYSTEM<strong><span> 2025</span></strong>
-                        </div>
                     </div>
+                </div>
+                <div class="copyright mt-3 text-center">
+                    &copy; STO MANAGEMENT SYSTEM<strong><span> 2025</span></strong>
                 </div>
             </div>
         </div>
@@ -173,6 +173,7 @@
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         function onScanSuccess(decodedText) {
@@ -189,16 +190,33 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        // Redirect to the STO scan page
-                        window.location.href = '{{ route('sto.index') }}';
+                        // Show success notification
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Login Successful',
+                            text: 'You will be redirected shortly.',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            // Redirect to the STO scan page
+                            window.location.href = '{{ route('sto.index') }}';
+                        });
                     } else {
                         // Show error notification
-                        alert('ID Card tidak terdaftar');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Login Failed',
+                            text: 'ID Card tidak terdaftar'
+                        });
                     }
                 },
                 error: function() {
                     // Show error notification
-                    alert('Terjadi kesalahan, silakan coba lagi');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Terjadi kesalahan, silakan coba lagi'
+                    });
                 }
             });
         }

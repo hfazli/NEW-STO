@@ -12,6 +12,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\YourController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,3 +90,5 @@ Route::get('/sto-form/{inventory_id}', [InventoryController::class, 'showForm'])
 Route::get('/sto/index', [STOController::class, 'index'])->name('sto.index');
 Route::get('/sto/form', [STOController::class, 'form'])->name('sto.form');
 Route::get('/login', [STOController::class, 'showLoginForm'])->name('login'); // Contoh rute login
+
+Route::post('/sto/report', [StoController::class, 'report'])->name('sto.report');

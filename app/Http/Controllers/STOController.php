@@ -44,4 +44,12 @@ class STOController extends Controller
     {
         // Your manage logic here
     }
+
+    public function report(Request $request)
+    {
+        // Handle the form submission and generate the report
+        // ...
+
+        return redirect()->back()->with('success', 'Report generated successfully.');
+    }
 }

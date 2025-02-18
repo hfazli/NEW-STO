@@ -40,6 +40,12 @@
                                     {{ $inventory->inventory_id ?? 'Not Available' }}
                                 </strong>
                             </p>
+                            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color: #e67e22;">
+                                <i class="fas fa-user"></i>&nbsp;&nbsp;Customer&nbsp;:&nbsp;
+                                <strong style="width: 5px; font-size: 20px; color: #e0e0e0; padding: 1px; text-transform: uppercase;">
+                                    {{ $inventory->customer ?? 'Not Available' }}
+                                </strong>
+                            </p>
                         @endif
                     </h5>
                     @if (session('success'))
@@ -53,7 +59,6 @@
                         </div>
                     @endif
                     <div class="text-end">
-                        {{-- name --}}
                         <small class="text-muted d-block" style="font-size: 1.2rem; color: #ffffff;">
                             {{ $user->username ?? 'Guest' }}
                             <i class="fas fa-user me-1" style="color:#1abc9c;"></i>
@@ -88,34 +93,33 @@
             </div>
         </div>
     </section>
-    
-    <section class="section">
-        <div class="card shadow-sm">
-            <div class="card-body p-4">
-                <h1 class="card-title mb-1 text-left" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">PT Kyoraku Blowmolding Indonesia</h1>
-                <h1 class="card-title mb-1 text-left" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">PPIC DEPARTEMENT/WAREHOUSE SECTION</h1>
-                <h5 class="card-title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">Inventory Card</h5>
-                <form>
-                    @csrf
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <div class="card p-3">
+    <section>
+        <form action="{{ route('sto.report') }}" method="POST">
+            @csrf
+            <div class="row mb-3 ">
+                <div class="col-md-12">
+                    <div class="card p-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
+                                <h1 class="card-title mb-1 text-left" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">PT Kyoraku Blowmolding Indonesia</h1>
+                                <h1 class="card-title mb-1 text-left" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">PPIC Departement / Warehousese</h1>
+                                <h5 class="card-title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">Inventory Card</h5>
                                 <div class="row mb-3">
                                     <label for="partName" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Part Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="partName" value="{{ $inventory->part_name ?? '' }}"readonly>
+                                        <input type="text" class="form-control" id="partName" value="{{ $inventory->part_name ?? '' }}" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="partNumber" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Part Number</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="partNumber" value="{{ $inventory->part_number ?? '' }}"readonly>
+                                        <input type="text" class="form-control" id="partNumber" value="{{ $inventory->part_number ?? '' }}" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="inventoryCode" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Inventory Code</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->inventory_id ?? '' }}"readonly>
+                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->inventory_id ?? '' }}" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -140,11 +144,11 @@
                                     <label>QTY BOX</label>
                                     <label>TOTAL</label>
                                     <label>GRAND TOTAL</label>
-                                    <input type="text" class="form-control" id="qtyPerBox" value="{{ $inventory->qty_package ?? '' }}"readonly>
+                                    <input type="text" class="form-control" id="qtyPerBox" value="{{ $inventory->qty_package ?? '' }}" readonly>
                                     <input type="text" class="form-control" id="qtyBoxTotal" value="{{ $inventory->qtybox ?? '' }}">
                                     <input type="text" class="form-control" id="total" value="{{ $inventory->total ?? '' }}" readonly>
                                     <input type="text" class="form-control" id="grandTotal" value="{{ $inventory->grand_total ?? '' }}" readonly>
-                                    <input type="text" class="form-control" id="qtyPerBox2" value="{{ $inventory->qty_per_box2 ?? '' }}">
+                                    <input type="text" class="form-control" id="qtyPerBox2" value="{{ $inventory->qty_package ?? '' }}">
                                     <input type="text" class="form-control" id="qtyBoxTotal2" value="{{ $inventory->qtybox2 ?? '' }}">
                                     <input type="text" class="form-control" id="total2" value="{{ $inventory->total2 ?? '' }}" readonly>
                                 </div>
@@ -155,28 +159,28 @@
                                         grid-template-columns: repeat(4, 1fr);
                                         gap: 10px;
                                         margin-top: 20px;
-                                        border: 1px solid #ccc; /* Add border around the grid container */
-                                        padding: 10px; /* Add padding inside the border */
+                                        border: 1px solid #ccc;
+                                        padding: 10px;
                                     }
                                     .grid-container label {
                                         font-weight: bold;
                                         color: #ffffff;
-                                        border-right: 1px solid #ccc; /* Add right border to labels */
-                                        padding-right: 10px; /* Add padding to the right of labels */
+                                        border-right: 1px solid #ccc;
+                                        padding-right: 10px;
                                     }
                                     .grid-container input {
                                         margin-bottom: 10px;
-                                        border: 1px solid #ccc; /* Add border around the input fields */
-                                        padding-right: 10px; /* Add padding to the right of input fields */
+                                        border: 1px solid #ccc;
+                                        padding-right: 10px;
                                     }
                                     .grid-container label:last-child,
                                     .grid-container input:last-child {
-                                        border-right: none; /* Remove right border from the last item */
+                                        border-right: none;
                                     }
                                 </style>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <label for="issueDate" class="form-label">Issue Date</label>
+                                        <label for="issueDate" class="form-label">STO Periode</label>
                                         <input type="text" class="form-control" id="issueDate" value="{{ $inventory->issue_date ?? '' }}">
                                     </div>
                                     <div class="col-md-4">
@@ -204,10 +208,10 @@
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    {{-- reload with ajax  --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Auto-focus pada input ketika halaman dimuat
+            const InventoryInput = document.getElementById('InventoryInput');
+            if (InventoryInput) {
             const InventoryInput = document.getElementById('InventoryInput');
             const form = document.getElementById('autoSubmitForm');
 
@@ -314,8 +318,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const issueDate = document.getElementById('issueDate');
-            const today = new Date().toISOString().split('T')[0];
-            issueDate.value = today;
+            const today = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            issueDate.value = today.toLocaleDateString('id-ID', options) + ' ' + today.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
         });
     </script>
 </body>
