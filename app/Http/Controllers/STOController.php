@@ -26,7 +26,7 @@ class STOController extends Controller
     }
 
     // Method untuk halaman form
-    public function form()
+    public function form(Request $request)
     {
         // Periksa apakah pengguna sudah login
         if (!Auth::check()) {
@@ -35,7 +35,7 @@ class STOController extends Controller
 
         // Ambil data yang diperlukan untuk halaman form
         $user = Auth::user();
-        $inventory = Inventory::all(); // Contoh pengambilan data inventory
+        $inventory = inventory::all(); // Contoh pengambilan data inventory
 
         return view('sto.form', compact('user', 'inventory'));
     }

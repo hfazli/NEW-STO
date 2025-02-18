@@ -33,11 +33,11 @@
                 <div class="navbar-form d-flex justify-content-between align-items-center mb-1 p-2 rounded">
                     <h5 class="card-title" style="font-size: 1.5rem; font-weight: bold; color: #ffff;">
                         <i class="fas fa-box-open me-2"></i> STO Inventory Scan
-                        @if (isset($inventory) && $inventory->count() > 0)
+                        @if (isset($inventory))
                             <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color: #e67e22;">
                                 <i class="fas fa-file-invoice"></i>&nbsp;&nbsp;Inventory ID&nbsp;:&nbsp;
                                 <strong style="width: 5px; font-size: 20px; color: #e0e0e0; padding: 1px; text-transform: uppercase;">
-                                    {{ $inventory->first()->inventory_id ?? 'Not Available' }}
+                                    {{ $inventory->inventory_id ?? 'Not Available' }}
                                 </strong>
                             </p>
                         @endif
@@ -71,12 +71,12 @@
                 </div>
                 <div class="card p-4 shadow-lg" style="margin-bottom: -10px">
                     <!-- Form Packing -->
-                    <form>
+                    <form action="{{ route('sto.form') }}" method="GET">
                         @csrf
                         <div class="col-12 mb-2">
                             <label for="InventoryInput" class="form-label" style="font-size: 1.1rem;">Inventory Number (Scan QR)</label>
                             <div class="input-group">
-                                <input type="text" name="part_number" class="form-control" id="InventoryInput" required autofocus>
+                                <input type="text" name="inventory_id" class="form-control" id="InventoryInput" required autofocus>
                             </div>
                         </div>
                         <div class="col-12">
@@ -103,19 +103,19 @@
                                 <div class="row mb-3">
                                     <label for="partName" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Part Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="partName" value="{{ $inventory->part_name ?? '' }}">
+                                        <input type="text" class="form-control" id="partName" value="{{ $inventory->part_name ?? '' }}"readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="partNumber" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Part Number</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="partNumber" value="{{ $inventory->part_no ?? '' }}">
+                                        <input type="text" class="form-control" id="partNumber" value="{{ $inventory->part_number ?? '' }}"readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="inventoryCode" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Inventory Code</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->inventory_id ?? '' }}">
+                                        <input type="text" class="form-control" id="inventoryCode" value="{{ $inventory->inventory_id ?? '' }}"readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -140,7 +140,7 @@
                                     <label>QTY BOX</label>
                                     <label>TOTAL</label>
                                     <label>GRAND TOTAL</label>
-                                    <input type="text" class="form-control" id="qtyPerBox" value="{{ $inventory->qty_per_box ?? '' }}">
+                                    <input type="text" class="form-control" id="qtyPerBox" value="{{ $inventory->qty_package ?? '' }}"readonly>
                                     <input type="text" class="form-control" id="qtyBoxTotal" value="{{ $inventory->qtybox ?? '' }}">
                                     <input type="text" class="form-control" id="total" value="{{ $inventory->total ?? '' }}" readonly>
                                     <input type="text" class="form-control" id="grandTotal" value="{{ $inventory->grand_total ?? '' }}" readonly>
