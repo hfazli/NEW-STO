@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Data Reports')
+@section('title', 'Data Report')
 
 @section('content')
    <div class="pagetitle">
-       <h1>FG Reports</h1>
+       <h1>Report STO</h1>
        <nav>
            <ol class="breadcrumb">
                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-               <li class="breadcrumb-item active">FG Reports</li>
+               <li class="breadcrumb-item active">Report STO</li>
            </ol>
        </nav>
    </div>
@@ -30,7 +30,7 @@
    <section class="section">
        <div class="card">
            <div class="card-body">
-               <h5 class="card-title">Reports List</h5>
+               <h5 class="card-title">Report List</h5>
                <div class="table-responsive">
                <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#importModal">
                    <i class="fas fa-file-excel"></i> Export Excel FG
@@ -43,33 +43,44 @@
                                <th>Part Number</th>
                                <th>ID Inventory</th>
                                <th>Status Product</th>
-                               <th>Qty Per Box</th>
+                               <th>Qty/Package</th>
                                <th>Qty Box</th>
                                <th>Total</th>
                                <th>Grand Total</th>
                                <th>STO Periode</th>
+                               <th>Prepared By</th>
+                               <th>Checked By</th>
+                               <th>Detail Lokasi Name</th>
+                               <th>Detail Lokasi Code</th>
+                               <th>Plant</th>
+                               <th>ID Card Number</th>
                                <th>Actions</th>
                            </tr>
                        </thead>
                        <tbody>
                            @foreach($reports as $index => $report)
                                <tr>
-                               <td>{{ $index + 1 }}</td>
+                                   <td>{{ $index + 1 }}</td>
                                    <td>{{ $report->inventory_id }}</td>
-                                   <td>{{ $finishedGood->part_name }}</td>
-                                   <td>{{ $finishedGood->part_number }}</td>
-                                   <td>{{ $finishedGood->qty_package }}</td>
-                                   <td>{{ $finishedGood->project }}</td>
-                                   <td>{{ $finishedGood->customer }}</td>
-                                   <td>{{ $finishedGood->area_fg }}</td>
-                                   <td>{{ $finishedGood->satuan }}</td>
-                                   <td>{{ $finishedGood->sto_periode }}</td>
+                                   <td>{{ $report->part_name }}</td>
+                                   <td>{{ $report->part_number }}</td>
+                                   <td>{{ $report->qty_package }}</td>
+                                   <td>{{ $report->qtybox }}</td>
+                                   <td>{{ $report->total }}</td>
+                                   <td>{{ $report->grand_total }}</td>
+                                   <td>{{ $report->sto_periode }}</td>
+                                   <td>{{ $report->prepared_by }}</td>
+                                   <td>{{ $report->checked_by }}</td>
+                                   <td>{{ $report->detail_lokasi }}</td>
+                                   <td>{{ $report->detail_lokasi_code }}</td>
+                                   <td>{{ $report->plant }}</td>
+                                   <td>{{ $report->id_card_number }}</td>
                                    <td>
                                        <div class="d-flex justify-content-center">
-                                           <a href="{{ route('reports.edit', $report->id) }}" class="btn btn-primary me-2">
+                                           <a href="{{ route('report.edit', $report->id) }}" class="btn btn-primary me-2">
                                                <i class="fas fa-edit"></i> Edit
                                            </a>
-                                           <form action="{{ route('reports.destroy', $report->id) }}" method="POST" id="delete-form-{{ $report->id }}" style="display:inline;">
+                                           <form action="{{ route('report.destroy', $report->id) }}" method="POST" id="delete-form-{{ $report->id }}" style="display:inline;">
                                                @csrf
                                                @method('DELETE')
                                                <button type="button" onclick="confirmDelete({{ $report->id }})" class="btn btn-danger">
@@ -90,9 +101,17 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <script>
        function confirmDelete(id) {
-           if (confirm('Are you sure you want to delete this item?')) {
-               document.getElementById('delete-form-' + id).submit();
-           }
+           Swal.fire({
+               title: 'Are you sure you want to delete this item?',
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonText: 'Yes, delete it!',
+               cancelButtonText: 'Cancel'
+           }).then((result) => {
+               if (result.isConfirmed) {
+                   document.getElementById('delete-form-' + id).submit();
+               }
+           });
        }
 
        function changeEntriesPerPage() {

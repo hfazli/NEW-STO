@@ -68,6 +68,8 @@ Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory
 Route::post('/inventory/{id}/change-status', [InventoryController::class, 'changeStatus'])->name('inventory.changeStatus');
 Route::get('/inventory/downloadPdf', [InventoryController::class, 'downloadPdf'])->name('inventory.downloadPdf');
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route::post('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
 
 Route::get('/daily-stok', [DailyController::class, 'index'])->name('daily.index');
 Route::get('/daily-stok/create', [DailyController::class, 'create'])->name('daily.create');

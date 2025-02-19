@@ -158,7 +158,7 @@
                                                 <td><input type="number" class="form-control" id="qtyPerBox2" name="qty_package2" value="{{ $inventory->null ?? '' }}"></td>
                                                 <td><input type="number" class="form-control" id="qtyBoxTotal2" name="qtybox2" value="{{ $inventory->qtybox2 ?? '' }}"></td>
                                                 <td><input type="number" class="form-control" id="total2" name="total2" value="{{ $inventory->null ?? '' }}" readonly></td>
-                                                <td colspan="4" class="text-center" style="color: red; font-size: 1.4rem;"><small>Item Kecil Jika Ada</small></td>
+                                                <td colspan="4" class="text-center" style="color: red;"><small>Item Kecil Jika Ada</small></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -184,7 +184,7 @@
                                         <div class="col-md-3">
                                             <label for="locationDetail" class="form-label d-block">Detail Lokasi Name</label>
                                             <input type="text" class="form-control" id="locationDetail" name="detail_lokasi2" value="{{ $inventory->null ?? '' }}">
-                                            <label for="locationDetail" class="form-label d-block" style="color: red; font-size: 1rem;">(Item Jika Berbeda Rak)</label>
+                                            <label for="locationDetail" class="form-label d-block">(Item Jika Berbeda Rak)</label>
                                         </div>
                                         <div class="col-md-3">
                                             <label for="plant" class="form-label d-block">Plant</label>

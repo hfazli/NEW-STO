@@ -73,7 +73,7 @@
                     <div class="text-end">
                         {{-- name --}}
                         <small class="text-muted d-block" style="font-size: 1.2rem; color: #ffffff;">
-                            {{ $user->username ?? 'Guest' }}
+                             {{ $user->username ?? 'Guest' }}
                             <i class="fas fa-user me-1" style="color:#1abc9c;"></i>
                         </small>
                         <small class="text-muted d-block">
