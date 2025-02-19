@@ -99,9 +99,14 @@
                     <div class="card p-3">
                         <div class="card shadow-sm">
                             <div class="card-body p-4">
-                                <h1 class="card-title mb-1 text-left" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">PT Kyoraku Blowmolding Indonesia</h1>
-                                <h1 class="card-title mb-1 text-left" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">PPIC Departement / Warehouse</h1>
-                                <h5 class="card-title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">Inventory Card</h5>
+                                 <h1 class="card-title mb-1 text-left" style="font-size: 1.5rem; font-weight: bold; color:rgb(255, 0, 0);">PT Kyoraku Blowmolding Indonesia</h1>
+                                <h1 class="card-title mb-1 text-left" style="font-size: 1.3rem; font-weight: bold; color:rgb(255, 0, 0);">PPIC Departement / Warehouse</h1>
+                                <h5 class="card-    title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">Inventory Card</h5>
+                                <div class="card mb-1">
+                                    <div class="card-body p-2 offset">
+                                        <h1 class="card-title text-end" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">Product</h1>
+                                    </div>
+                                </div>
                                 <div class="row mt-4">
                                     <div class="row mb-3">
                                         <label for="partName" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Part Name</label>
@@ -135,6 +140,10 @@
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="status_product" id="statusProductFG" value="FG" {{ isset($inventory) && $inventory->status_product == 'FG' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="statusProductFG">FG</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="status_product" id="statusProductGOOD" value="FG" {{ isset($inventory) && $inventory->status_product == 'GOOD' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="statusProductGOOD">GOOD</label>
                                             </div>
                                         </div>
                                     </div>
@@ -196,9 +205,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center d-flex justify-content-center">
-                                        <button class="btn btn-success btn-lg me-2" type="button" onclick="confirmSave()">Save</button>
-                                        <button class="btn btn-primary btn-lg no-print" type="button" onclick="window.print()">Print PDF</button>
-                                    </div>
+                                <button class="btn btn-success btn-lg me-2" type="button" onclick="confirmSave()">Save</button>
                                 </div>
                             </div>
                         </div>

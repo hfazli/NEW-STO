@@ -101,7 +101,7 @@
                             <div class="card-body p-4">
                                 <h1 class="card-title mb-1 text-left" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">PT Kyoraku Blowmolding Indonesia</h1>
                                 <h1 class="card-title mb-1 text-left" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">PPIC Departement / Warehouse</h1>
-                                <h5 class="card-title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">Inventory Card</h5>
+                                <h5 class="card-title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">WIP</h5>
                                 <div class="row mt-4">
                                     <div class="row mb-3">
                                         <label for="partName" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Part Name</label>
@@ -121,61 +121,24 @@
                                             <input type="text" class="form-control" id="inventoryCode" name="inventory_id" value="{{ $inventory->inventory_id ?? '' }}" readonly>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
-                                        <label for="statusProduct" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Status Product</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-check form-check-inline me-4">
-                                                <input class="form-check-input" type="radio" name="status_product" id="statusProductNG" value="NG" {{ isset($inventory) && $inventory->status_product == 'NG' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="statusProductNG">NG</label>
-                                            </div>
-                                            <div class="form-check form-check-inline me-4">
-                                                <input class="form-check-input" type="radio" name="status_product" id="statusProductWIP" value="WIP" {{ isset($inventory) && $inventory->status_product == 'WIP' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="statusProductWIP">WIP</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="status_product" id="statusProductFG" value="FG" {{ isset($inventory) && $inventory->status_product == 'FG' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="statusProductFG">FG</label>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>QTY/BOX</th>
-                                                <th>QTY BOX</th>
+                                                <th>MOLDING DATE</th>
+                                                <th>SHIFT</th>
+                                                <th>QUANTITY</th>
                                                 <th>TOTAL</th>
-                                                <th>GRAND TOTAL</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td><input type="date" class="form-control" id="moldingDate" name="molding_date" value="{{ $inventory->molding_date ?? '' }}" readonly></td>
+                                                <td><input type="text" class="form-control" id="shift" name="shift" value="{{ $inventory->shift ?? '' }}" readonly></td>
                                                 <td><input type="number" class="form-control" id="qtyPerBox" name="qty_package" value="{{ $inventory->qty_package ?? '' }}" readonly></td>
-                                                <td><input type="number" class="form-control" id="qtyBoxTotal" name="qtybox" value="{{ $inventory->qtybox ?? '' }}"></td>
                                                 <td><input type="number" class="form-control" id="total" name="total" value="{{ $inventory->total ?? '' }}" readonly></td>
-                                                <td><input type="number" class="form-control" id="grandTotal" name="grand_total" value="{{ $inventory->grand_total ?? '' }}" readonly></td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="number" class="form-control" id="qtyPerBox2" name="qty_package2" value="{{ $inventory->null ?? '' }}"></td>
-                                                <td><input type="number" class="form-control" id="qtyBoxTotal2" name="qtybox2" value="{{ $inventory->qtybox2 ?? '' }}"></td>
-                                                <td><input type="number" class="form-control" id="total2" name="total2" value="{{ $inventory->null ?? '' }}" readonly></td>
-                                                <td colspan="4" class="text-center" style="color: red;"><small>Item Kecil Jika Ada</small></td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="row mb-3">
-                                        <div class="col-md-4">
-                                            <label for="issueDate" class="form-label">STO Periode</label>
-                                            <input type="text" class="form-control" id="issueDate" name="issue_date" value="{{ $inventory->issue_date ?? '' }}">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="preparedBy" class="form-label">Prepared By</label>
-                                            <input type="text" class="form-control" id="preparedBy" name="prepared_by" value="{{ $user->id_card_number ?? '' }}">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="checkedBy" class="form-label">Checked By</label>
-                                            <input type="text" class="form-control" id="checkedBy" name="checked_by" value="{{ $admin->username ?? '' }}">
-                                        </div>
-                                    </div>
                                     <div class="row mb-3 text-center">
                                         <div class="col-md-3">
                                             <label for="locationDetail" class="form-label d-block">Detail Lokasi Name</label>
