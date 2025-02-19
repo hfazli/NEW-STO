@@ -23,6 +23,19 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+        .barcode-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,15 +47,15 @@
                     <h5 class="card-title" style="font-size: 1.5rem; font-weight: bold; color: #ffff;">
                         <i class="fas fa-box-open me-2"></i> STO Inventory Scan
                         @if (isset($inventory))
-                            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color: #e67e22;">
+                            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color:rgb(255, 255, 255);">
                                 <i class="fas fa-file-invoice"></i>&nbsp;&nbsp;Inventory ID&nbsp;:&nbsp;
-                                <strong style="width: 5px; font-size: 20px; color: #e0e0e0; padding: 1px; text-transform: uppercase;">
+                                <strong style="width: 5px; font-size: 20px; color:rgb(255, 225, 0); padding: 1px; text-transform: uppercase;">
                                     {{ $inventory->inventory_id ?? 'Not Available' }}
                                 </strong>
                             </p>
-                            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color: #e67e22;">
-                                <i class="fas fa-user"></i>&nbsp;&nbsp;Customer&nbsp;:&nbsp;
-                                <strong style="width: 5px; font-size: 20px; color: #e0e0e0; padding: 1px; text-transform: uppercase;">
+                            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color:rgb(255, 255, 255);">
+                                <i class="fas fa-building"></i>&nbsp;&nbsp;Customer&nbsp;:&nbsp;
+                                <strong style="width: 5px; font-size: 20px; color:rgb(255, 213, 0); padding: 1px; text-transform: uppercase;">
                                     {{ $inventory->customer ?? 'Not Available' }}
                                 </strong>
                             </p>
@@ -74,36 +87,21 @@
                         </small>
                     </div>
                 </div>
-                <div class="card p-4 shadow-lg" style="margin-bottom: -10px">
-                    <!-- Form Packing -->
-                    <form action="{{ route('sto.form') }}" method="GET">
-                        @csrf
-                        <div class="col-12 mb-2">
-                            <label for="InventoryInput" class="form-label" style="font-size: 1.1rem;">Inventory Number (Scan QR)</label>
-                            <div class="input-group">
-                                <input type="text" name="inventory_id" class="form-control" id="InventoryInput" required autofocus>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary btn-lg w-100" type="submit" id="">Show</button>
-                        </div>
-                        <input type="hidden" name="action" value="show" id="actionField">
-                    </form>
-                </div>
             </div>
         </div>
     </section>
     <section>
         <form action="{{ route('sto.report') }}" method="POST">
             @csrf
-            <div class="row mb-3 ">
+            <div class="row mb-3">
                 <div class="col-md-12">
                     <div class="card p-3">
                         <div class="card shadow-sm">
                             <div class="card-body p-4">
                                 <h1 class="card-title mb-1 text-left" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">PT Kyoraku Blowmolding Indonesia</h1>
-                                <h1 class="card-title mb-1 text-left" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">PPIC Departement / Warehousese</h1>
+                                <h1 class="card-title mb-1 text-left" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">PPIC Departement / Warehouse</h1>
                                 <h5 class="card-title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">Inventory Card</h5>
+                                <div class="row mt-4">
                                 <div class="row mb-3">
                                     <label for="partName" class="col-sm-2 col-form-label" style="font-size: 1.2rem;">Part Name</label>
                                     <div class="col-sm-10">
@@ -139,45 +137,31 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid-container">
-                                    <label>QTY/BOX</label>
-                                    <label>QTY BOX</label>
-                                    <label>TOTAL</label>
-                                    <label>GRAND TOTAL</label>
-                                    <input type="text" class="form-control" id="qtyPerBox" value="{{ $inventory->qty_package ?? '' }}" readonly>
-                                    <input type="text" class="form-control" id="qtyBoxTotal" value="{{ $inventory->qtybox ?? '' }}">
-                                    <input type="text" class="form-control" id="total" value="{{ $inventory->total ?? '' }}" readonly>
-                                    <input type="text" class="form-control" id="grandTotal" value="{{ $inventory->grand_total ?? '' }}" readonly>
-                                    <input type="text" class="form-control" id="qtyPerBox2" value="{{ $inventory->qty_package ?? '' }}">
-                                    <input type="text" class="form-control" id="qtyBoxTotal2" value="{{ $inventory->qtybox2 ?? '' }}">
-                                    <input type="text" class="form-control" id="total2" value="{{ $inventory->total2 ?? '' }}" readonly>
-                                </div>
-
-                                <style>
-                                    .grid-container {
-                                        display: grid;
-                                        grid-template-columns: repeat(4, 1fr);
-                                        gap: 10px;
-                                        margin-top: 20px;
-                                        border: 1px solid #ccc;
-                                        padding: 10px;
-                                    }
-                                    .grid-container label {
-                                        font-weight: bold;
-                                        color: #ffffff;
-                                        border-right: 1px solid #ccc;
-                                        padding-right: 10px;
-                                    }
-                                    .grid-container input {
-                                        margin-bottom: 10px;
-                                        border: 1px solid #ccc;
-                                        padding-right: 10px;
-                                    }
-                                    .grid-container label:last-child,
-                                    .grid-container input:last-child {
-                                        border-right: none;
-                                    }
-                                </style>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>QTY/BOX</th>
+                                            <th>QTY BOX</th>
+                                            <th>TOTAL</th>
+                                            <th>GRAND TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="number" class="form-control" id="qtyPerBox" value="{{ $inventory->qty_package ?? '' }}" readonly></td>
+                                            <td><input type="number" class="form-control" id="qtyBoxTotal" value="{{ $inventory->qtybox ?? '' }}"></td>
+                                            <td><input type="number" class="form-control" id="total" value="{{ $inventory->total ?? '' }}" readonly></td>
+                                            <td><input type="number" class="form-control" id="grandTotal" value="{{ $inventory->grand_total ?? '' }}" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="number" class="form-control" id="qtyPerBox2" value="{{ $inventory->null ?? '' }}"></td>
+                                            <td><input type="number" class="form-control" id="qtyBoxTotal2" value="{{ $inventory->qtybox2 ?? '' }}"></td>
+                                            <td><input type="number" class="form-control" id="total2" value="{{ $inventory->total2 ?? '' }}" readonly></td>
+                                            <td colspan="4" class="text-center"><small>Item Kecil Yg Berada DIluar Rak</small></td>
+                                        </tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
                                         <label for="issueDate" class="form-label">STO Periode</label>
@@ -192,15 +176,35 @@
                                         <input type="text" class="form-control" id="checkedBy" value="{{ $admin->username ?? '' }}">
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <label for="locationDetail" class="form-label">Detail Lokasi Rak</label>
+                                        <input type="text" class="form-control" id="locationDetail" value="{{ $inventory->detail_lokasi ?? '' }}" readonly>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="locationDetail" class="form-label">Detail Lokasi Rak (Optional)</label>
+                                        <input type="text" class="form-control" id="locationDetail" value="{{ $inventory->null ?? '' }}">
+                                        <label1 for="locationDetail" class="form-label text-center">(Item DI Berbeda Rak)</label1>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="plant" class="form-label">Plant</label>
+                                        <input type="text" class="form-control" id="plant" value="{{ $inventory->plant ?? '' }}" readonly>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="userId" class="form-label">ID Card Number</label>
+                                        <input type="text" class="form-control" id="userId" value="{{ $user->id_card_number ?? '' }}">
+                                    </div>
+                                </div>
+                                <div class="text-center d-flex justify-content-center">
+                                    <button class="btn btn-success btn-lg me-2" type="submit">Save</button>
+                                    <button class="btn btn-primary btsto n-lg no-print" type="button" onclick="window.print()">Print PDF</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <button class="btn btn-success btn-lg" type="submit">Save</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
     </section>
 
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -210,8 +214,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const InventoryInput = document.getElementById('InventoryInput');
-            if (InventoryInput) {
             const InventoryInput = document.getElementById('InventoryInput');
             const form = document.getElementById('autoSubmitForm');
 
@@ -225,6 +227,7 @@
                     }
                 });
             }
+
             // Fungsi untuk menampilkan alert dengan waktu otomatis hilang
             function showAlert(alertId) { 
                 const alertBox = document.getElementById(alertId);
@@ -240,6 +243,7 @@
                     }, 5000);
                 }
             }
+
             // Panggil alert sesuai session
             @if (session('success'))
                 showAlert('alertSuccess');
@@ -247,6 +251,7 @@
                 showAlert('alertNotFound');
             @endif
         });
+
         // Keep session alive setiap 10 menit
         let sessionAlive = true; // Kendalikan secara global
         setInterval(() => {
@@ -270,6 +275,7 @@
                 showAlert('alertNotFound');
             @endif
         });
+
         // {{-- time alert --}}
         @if (session('success') || session('notfound') || session('gagal'))
             // Waktu delay 5 detik (5000 milidetik)
@@ -319,8 +325,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             const issueDate = document.getElementById('issueDate');
             const today = new Date();
-            const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            issueDate.value = today.toLocaleDateString('id-ID', options) + ' ' + today.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            issueDate.value = today.toLocaleDateString('id-ID', options);
         });
     </script>
 </body>
