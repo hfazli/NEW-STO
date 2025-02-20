@@ -22,7 +22,7 @@ use App\Http\Controllers\InventoryController;
 */
 
 Route::get('/', function () {
-    return view('login-admin');
+  return view('login-admin');
 })->name('login-admin');
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
@@ -30,13 +30,13 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Admin routes
 Route::prefix('admin')->group(function () {
-    Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
-    Route::post('login', [AdminAuthController::class, 'login'])->name('postlogin');
-    Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+  Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+  Route::post('login', [AdminAuthController::class, 'login'])->name('postlogin');
+  Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 });
 
 Route::get('/Login-user', function () {
-    return view('Login-user');
+  return view('Login-user');
 })->name('Login-user');
 
 Route::post('/login-user', [UserController::class, 'login'])->name('loginUser');
@@ -50,7 +50,15 @@ Route::post('/users/{user}/update-password', [UserController::class, 'updatePass
 
 Route::get('/reports/fg', [ReportController::class, 'index'])->name('reports.fg');
 Route::get('/sto', [STOController::class, 'index'])->name('sto.index');
+Route::post('/sto-scan', [STOController::class, 'scan'])->name('sto.scan');
+Route::get('/sto-form/{inventory}', [STOController::class, 'form'])->name('sto.form');
+Route::post('/sto-form/{inventory}/store', [STOController::class, 'store'])->name('sto.store');
 Route::get('/scan-sto', [InventoryController::class, 'showForm'])->name('scan-sto');
+Route::get('/reports/{id}/edit', [ReportController::class, 'edit'])->name('reports.edit');
+Route::get('/reports/{id}/print', [ReportController::class, 'print'])->name('reports.print');
+Route::post('/reports/{id}/destroy', [ReportController::class, 'index'])->name('reports.destroy');
+// FETCH DATA FOR CHARTS
+Route::get('/fetch-report-sto', [DashboardController::class, 'reportSto'])->name('dashboard.sto');
 
 // Define the inventory routes
 Route::resource('inventory', InventoryController::class);
