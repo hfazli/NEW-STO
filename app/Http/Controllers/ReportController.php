@@ -66,4 +66,12 @@ class ReportController extends Controller
     // Stream PDF to Browser
     return $dompdf->stream("report-sto-" . $report->inventory_id . ".pdf");
   }
+
+  public function delete($id)
+  {
+    $report = ReportSTO::findOrFail($id);
+    $report->delete();
+
+    return back()->with('success', 'Report Berhasil Dihapus');
+  }
 }

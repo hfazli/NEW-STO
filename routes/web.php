@@ -56,7 +56,7 @@ Route::post('/sto-form/{inventory}/store', [STOController::class, 'store'])->nam
 Route::get('/scan-sto', [InventoryController::class, 'showForm'])->name('scan-sto');
 Route::get('/reports/{id}/edit', [ReportController::class, 'edit'])->name('reports.edit');
 Route::get('/reports/{id}/print', [ReportController::class, 'print'])->name('reports.print');
-Route::post('/reports/{id}/destroy', [ReportController::class, 'index'])->name('reports.destroy');
+Route::delete('/reports/{id}/destroy', [ReportController::class, 'delete'])->name('reports.destroy');
 // FETCH DATA FOR CHARTS
 Route::get('/fetch-report-sto', [DashboardController::class, 'reportSto'])->name('dashboard.sto');
 

@@ -38,18 +38,18 @@ class DashboardController extends Controller
     $maxDate = ReportSTO::max('issued_date'); // Latest month
 
     if (!$minDate || !$maxDate) {
-      return []; // Return empty array if no data
-    }
+      $months = [];
+    } else {
+      // Convert to Carbon instances
+      $start = Carbon::parse($minDate)->startOfMonth();
+      $end = Carbon::parse($maxDate)->startOfMonth();
 
-    // Convert to Carbon instances
-    $start = Carbon::parse($minDate)->startOfMonth();
-    $end = Carbon::parse($maxDate)->startOfMonth();
-
-    // Generate the list of months
-    $months = [];
-    while ($start->lte($end)) {
-      $months[] = $start->copy();
-      $start->addMonth();
+      // Generate the list of months
+      $months = [];
+      while ($start->lte($end)) {
+        $months[] = $start->copy();
+        $start->addMonth();
+      }
     }
 
     // return view('dashboard', [
