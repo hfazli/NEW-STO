@@ -64,14 +64,14 @@
                                <th>Part Number</th>
                                <th>Type Package</th>
                                <th>Qty/Box</th>
-                               <th>Status Product</th> <!-- Moved Status Product column -->
+                               <th>Status Product</th>
                                <th>Project</th>
                                <th>Customer</th>
                                <th>Detail Lokasi</th>
                                <th>Unit</th>
                                <th>Stok Awal</th>
                                <th>Plant</th>
-                               <th>Actions</th> <!-- Added Actions column -->
+                               <th>Actions</th>
                            </tr>
                        </thead>
                        <tbody>
@@ -83,7 +83,7 @@
                                    <td>{{ $item->part_number }}</td>
                                    <td>{{ $item->type_package }}</td>
                                    <td>{{ $item->qty_package }}</td>
-                                   <td>{{ $item->status_product }}</td> <!-- Moved Status Product data display -->
+                                   <td>{{ $item->status_product }}</td>
                                    <td>{{ $item->project }}</td>
                                    <td>{{ $item->customer }}</td>
                                    <td>{{ $item->detail_lokasi }}</td>
@@ -92,13 +92,17 @@
                                    <td>{{ $item->plant }}</td>
                                    <td>
                                        <div class="d-flex justify-content-center">
-                                           <a href="{{ route('inventory.edit', $item->id) }}" class="btn btn-primary me-2">
+                                           <a href="{{ route('inventory.edit', $item->id) }}" class="btn btn-primary btn-sm me-2">
                                                <i class="fas fa-edit"></i> Edit
+                                           </a>
+
+                                           <a href="{{ route('inventory.print', $item->id) }}" class="btn btn-secondary btn-sm me-2">
+                                               <i class="fas fa-print"></i> Print PDF
                                            </a>
                                            <form action="{{ route('inventory.destroy', $item->id) }}" method="POST" id="delete-form-{{ $item->id }}" style="display:inline;">
                                                @csrf
                                                @method('DELETE')
-                                               <button type="button" onclick="confirmDelete({{ $item->id }})" class="btn btn-danger">
+                                               <button type="button" onclick="confirmDelete({{ $item->id }})" class="btn btn-danger btn-sm">
                                                    <i class="bi bi-trash3"></i> Delete
                                                </button>
                                            </form>

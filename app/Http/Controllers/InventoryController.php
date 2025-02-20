@@ -7,7 +7,7 @@ use App\Models\Inventory;
 use App\Models\Customer;
 use App\Imports\InventoryImport;
 use Maatwebsite\Excel\Facades\Excel;
-use PDF; // Ensure you have the barryvdh/laravel-dompdf package installed
+use Barryvdh\DomPDF\Facade\Pdf as PDF; // Ensure you have the barryvdh/laravel-dompdf package installed
 
 class InventoryController extends Controller
 {
@@ -187,5 +187,12 @@ class InventoryController extends Controller
         } else {
             return redirect()->route('sto.index')->with('notfound', 'Inventory not found');
         }
+    }
+
+    public function print($id)
+    {
+        $inventory = Inventory::findOrFail($id);
+        $pdf = PDF::loadView('inventory.pdf', compact('inventory'))->setPaper('a4', 'portrait');
+        return $pdf->download('inventory.pdf');
     }
 }

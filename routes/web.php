@@ -28,8 +28,9 @@ Route::get('/', function () {
     return view('login-admin');
 })->name('login-admin');
 
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 // Admin routes
 Route::prefix('admin')->group(function () {
@@ -67,6 +68,7 @@ Route::post('/inventory', [InventoryController::class, 'store'])->name('inventor
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 Route::post('/inventory/{id}/change-status', [InventoryController::class, 'changeStatus'])->name('inventory.changeStatus');
 Route::get('/inventory/downloadPdf', [InventoryController::class, 'downloadPdf'])->name('inventory.downloadPdf');
+Route::get('/inventory/{id}/print', [InventoryController::class, 'print'])->name('inventory.print');
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 Route::post('/reports', [ReportController::class, 'index'])->name('reports.index');
 Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');

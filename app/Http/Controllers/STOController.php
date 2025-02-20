@@ -52,4 +52,11 @@ class STOController extends Controller
 
         return redirect()->back()->with('success', 'Report generated successfully.');
     }
+
+    public function yourMethod()
+    {
+        $user = auth()->user(); // Atau cara lain untuk mendapatkan data pengguna
+
+        return view('STO.from', compact('user'));
+    }
 }

@@ -12,7 +12,7 @@ class CreateInventoryTable extends Migration
             $table->id();
             $table->string('inventory_id');
             $table->string('part_name');
-            $table->string('part_number');
+            $table->string('part_number')->nullable();;
             $table->string('type_package');
             $table->integer('qty_package')->default(0);
             $table->string('project')->nullable();
