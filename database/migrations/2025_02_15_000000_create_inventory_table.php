@@ -19,7 +19,6 @@ class CreateInventoryTable extends Migration
             $table->string('customer');
             $table->string('detail_lokasi')->nullable();
             $table->string('satuan');
-            $table->integer('stok_awal')->default(0);
             $table->string('plant')->nullable();
             $table->string('status_product'); // Add this line
             $table->timestamps();

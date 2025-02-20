@@ -69,7 +69,6 @@
                                <th>Customer</th>
                                <th>Detail Lokasi</th>
                                <th>Unit</th>
-                               <th>Stok Awal</th>
                                <th>Plant</th>
                                <th>Actions</th>
                            </tr>
@@ -88,7 +87,6 @@
                                    <td>{{ $item->customer }}</td>
                                    <td>{{ $item->detail_lokasi }}</td>
                                    <td>{{ $item->satuan }}</td>
-                                   <td>{{ $item->stok_awal }}</td>
                                    <td>{{ $item->plant }}</td>
                                    <td>
                                        <div class="d-flex justify-content-center">

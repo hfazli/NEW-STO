@@ -72,14 +72,6 @@
                             <div id="reportsChart"></div>
                         </div>
                     </div>
-
-                    <!-- Inventory Report Card -->
-                    <div class="card">
-                        <div class="card-body pb-0">
-                            <h5 class="card-title">Report Daily Stock FG</h5>
-                            <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-                        </div>
-                    </div>
                     <!-- STO Report Card -->
                     <div class="card">
                         <div class="card-body pb-0">

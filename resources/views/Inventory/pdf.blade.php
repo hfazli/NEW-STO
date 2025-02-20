@@ -83,10 +83,6 @@
             <td>{{ $inventory->satuan }}</td>
         </tr>
         <tr>
-            <th>Stok Awal</th>
-            <td>{{ $inventory->stok_awal }}</td>
-        </tr>
-        <tr>
             <th>Plant</th>
             <td>{{ $inventory->plant }}</td>
         </tr>
