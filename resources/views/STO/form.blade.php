@@ -138,7 +138,7 @@
               <div class="mb-3 col-md-4">
                 <label for="checked_by" class="col-form-label">Checked By</label>
                 <input type="text" id="checked_by" name="checked_by" class="form-control" placeholder="Enter name"
-                  value="{{ old('checked_by') }}">
+                  value="{{ old('checked_by') }}" disabled>
               </div>
             </div>
 

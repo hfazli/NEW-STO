@@ -46,7 +46,7 @@ class STOController extends Controller
   public function store(Request $request)
   {
     $validatedData = $request->validate([
-      'inventory_id' => 'required|exists:inventory,id',
+      'inventory_id' => 'required|exists:inventory,inventory_id',
       'issued_date' => 'required|date',
       'prepared_by' => 'required|exists:users,id',
       'checked_by' => 'nullable',
@@ -57,7 +57,6 @@ class STOController extends Controller
       'grand_total' => 'required|integer',
     ]);
 
-    // Assuming the authenticated user is creating the report
     $validatedData['user_id'] = auth()->id();
 
     // Create and save the report
