@@ -54,8 +54,26 @@
   <section class="section">
     <nav class="navbar navbar-form shadow-sm">
       <div class="container container-fluid">
-        <div class="d-flex align-items-center">
-          <i class="fas fa-warehouse me-2"></i> Scan STO
+        <div class="d-flex flex-column align-items-start">
+          <div class="d-flex align-items-center">
+            <i class="fas fa-warehouse me-2"></i> Scan STO
+          </div>
+          @if (isset($inventory))
+            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color:rgb(255, 255, 255);">
+              <i class="fas fa-file-invoice"></i>&nbsp;&nbsp;Inventory ID&nbsp;:&nbsp;
+              <strong
+                style="width: 5px; font-size: 20px; color:rgb(255, 225, 0); padding: 1px; text-transform: uppercase;">
+                {{ $inventory->inventory_id ?? 'Not Available' }}
+              </strong>
+            </p>
+            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color:rgb(255, 255, 255);">
+              <i class="fas fa-building"></i>&nbsp;&nbsp;Customer&nbsp;:&nbsp;
+              <strong
+                style="width: 5px; font-size: 20px; color:rgb(255, 213, 0); padding: 1px; text-transform: uppercase;">
+                {{ $inventory->customer ?? 'Not Available' }}
+              </strong>
+            </p>
+          @endif
         </div>
         <div class="d-flex flex-column align-items-end">
           <div class="dropdown">

@@ -25,6 +25,9 @@ Route::get('/', function () {
   return view('login-admin');
 })->name('login-admin');
 
+Route::get('/login', function () {
+  return redirect()->route('login-admin');
+})->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -48,15 +51,17 @@ Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.d
 Route::get('/users/{user}/edit-password', [UserController::class, 'editPassword'])->name('users.editPassword');
 Route::post('/users/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 
+Route::middleware('auth')->group(function () {
+  Route::get('/sto', [STOController::class, 'index'])->name('sto.index');
+  Route::post('/sto-scan', [STOController::class, 'scan'])->name('sto.scan');
+  Route::get('/sto-form/{inventory}', [STOController::class, 'form'])->name('sto.form');
+  Route::post('/sto-form/{inventory}/store', [STOController::class, 'store'])->name('sto.store');
+  Route::get('/scan-sto', [InventoryController::class, 'showForm'])->name('scan-sto');
+});
+Route::delete('/reports/{id}/destroy', [ReportController::class, 'delete'])->name('reports.destroy');
 Route::get('/reports/fg', [ReportController::class, 'index'])->name('reports.fg');
-Route::get('/sto', [STOController::class, 'index'])->name('sto.index');
-Route::post('/sto-scan', [STOController::class, 'scan'])->name('sto.scan');
-Route::get('/sto-form/{inventory}', [STOController::class, 'form'])->name('sto.form');
-Route::post('/sto-form/{inventory}/store', [STOController::class, 'store'])->name('sto.store');
-Route::get('/scan-sto', [InventoryController::class, 'showForm'])->name('scan-sto');
 Route::get('/reports/{id}/edit', [ReportController::class, 'edit'])->name('reports.edit');
 Route::get('/reports/{id}/print', [ReportController::class, 'print'])->name('reports.print');
-Route::delete('/reports/{id}/destroy', [ReportController::class, 'delete'])->name('reports.destroy');
 // FETCH DATA FOR CHARTS
 Route::get('/fetch-report-sto', [DashboardController::class, 'reportSto'])->name('dashboard.sto');
 
