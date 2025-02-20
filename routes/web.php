@@ -10,6 +10,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\STOController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\YourController;
+use App\Http\Controllers\WipController;
 
 
 
@@ -20,7 +21,6 @@ use App\Http\Controllers\YourController;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
 |
 */
 
@@ -70,6 +70,7 @@ Route::get('/inventory/downloadPdf', [InventoryController::class, 'downloadPdf']
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 Route::post('/reports', [ReportController::class, 'index'])->name('reports.index');
 Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
+Route::post('/reports/store', [ReportController::class, 'store'])->name('reports.store');
 
 Route::get('/daily-stok', [DailyController::class, 'index'])->name('daily.index');
 Route::get('/daily-stok/create', [DailyController::class, 'create'])->name('daily.create');

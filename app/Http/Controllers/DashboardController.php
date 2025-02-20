@@ -18,7 +18,6 @@ class DashboardController extends Controller
 
         // Fetch customers from the database
         $customers = Customer::all();
-        $invoices = Invoice::all();
 
         // Fetch the data from the database
         $parts = Part::all();
@@ -41,7 +40,6 @@ class DashboardController extends Controller
             'days' => $days,
             'month' => $month,
             'year' => $year,
-            'invoices' => $invoices,
         ]);
     }
 }

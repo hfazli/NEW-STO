@@ -19,26 +19,24 @@ class ReportController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
-        $validatedData = $request->validate([
-            'qty_package' => 'required|numeric',
-            'qtybox' => 'required|numeric',
-            'total' => 'required|numeric',
-            'grand_total' => 'required|numeric',
+        $request->validate([
+            'part_name' => 'required|string',
+            'part_number' => 'required|string',
+            'inventory_id' => 'required|string',
+            'status_product' => 'required|string',
+            'qty_package' => 'required|integer',
+            'qtybox' => 'required|integer',
+            'total' => 'required|integer',
+            'grand_total' => 'required|integer',
             'issue_date' => 'required|date',
             'prepared_by' => 'required|string',
             'checked_by' => 'required|string',
             'detail_lokasi' => 'required|string',
-            'detail_lokasi2' => 'nullable|string',
             'plant' => 'required|string',
-            'id_card_number' => 'required|string',
         ]);
 
-        // Simpan data ke database
-        $report = new Report($validatedData);
-        $report->save();
+        Report::create($request->all());
 
-        // Redirect ke halaman laporan dengan pesan sukses
-        return redirect()->route('reports.index')->with('success', 'Data berhasil tersimpan dan ditambahkan ke laporan.');
+        return redirect()->route('sto.report')->with('success', 'Data berhasil tersimpan');
     }
 }

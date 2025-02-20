@@ -1,34 +1,33 @@
 <?php
+// filepath: /d:/PROJECT-STO - Copy/app/Http/Controllers/ReportController.php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Http\Controllers;
 
-class CreateReportsTable extends Migration
+use Illuminate\Http\Request;
+use App\Models\Report;
+
+class ReportController extends Controller
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function store(Request $request)
     {
-        Schema::create('reports', function (Blueprint $table) {
-            $table->id();
-            $table->string('report_id')->unique();
-            $table->string('title');
-            $table->text('description')->nullable(); 
-            $table->timestamps();
-        });
-    }
+        $request->validate([
+            'part_name' => 'required|string',
+            'part_number' => 'required|string',
+            'inventory_id' => 'required|string',
+            'status_product' => 'required|string',
+            'qty_package' => 'required|integer',
+            'qtybox' => 'required|integer',
+            'total' => 'required|integer',
+            'grand_total' => 'required|integer',
+            'issue_date' => 'required|date',
+            'prepared_by' => 'required|string',
+            'checked_by' => 'required|string',
+            'detail_lokasi' => 'required|string',
+            'plant' => 'required|string',
+        ]);
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('reports');
+        Report::create($request->all());
+
+        return redirect()->route('sto.index')->with('success', 'Data berhasil tersimpan');
     }
 }

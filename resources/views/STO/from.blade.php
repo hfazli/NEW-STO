@@ -60,6 +60,18 @@
                                     {{ $inventory->customer ?? 'Not Available' }}
                                 </strong>
                             </p>
+                            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color:rgb(255, 255, 255);">
+                                <i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Detail Lokasi&nbsp;:&nbsp;
+                                <strong style="width: 5px; font-size: 20px; color:rgb(255, 213, 0); padding: 1px; text-transform: uppercase;">
+                                    {{ $inventory->detail_lokasi ?? 'Not Available' }}
+                                </strong>
+                            </p>
+                            <p class="colom mt-1" style="font-size: 17px; margin-bottom: -1px; color:rgb(255, 255, 255);">
+                                <i class="fas fa-box-open me-2"></i>&nbsp;&nbsp;Type Pakage&nbsp;:&nbsp;
+                                <strong style="width: 5px; font-size: 20px; color:rgb(255, 213, 0); padding: 1px; text-transform: uppercase;">
+                                    {{ $inventory->type_package ?? 'Not Available' }}
+                                </strong>
+                            </p>
                         @endif
                     </h5>
                     @if (session('success'))
@@ -101,10 +113,10 @@
                             <div class="card-body p-4">
                                  <h1 class="card-title mb-1 text-left" style="font-size: 1.5rem; font-weight: bold; color:rgb(255, 0, 0);">PT Kyoraku Blowmolding Indonesia</h1>
                                 <h1 class="card-title mb-1 text-left" style="font-size: 1.3rem; font-weight: bold; color:rgb(255, 0, 0);">PPIC Departement / Warehouse</h1>
-                                <h5 class="card-    title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">Inventory Card</h5>
+                                <h5 class="card-title mb-3 text-center" style="font-size: 1.5rem; font-weight: bold; color: #ffffff;">Inventory Card</h5>
                                 <div class="card mb-1">
                                     <div class="card-body p-2 offset">
-                                        <h1 class="card-title text-end" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">Product</h1>
+                                        <h1 class="card-title text-center" style="font-size: 1.3rem; font-weight: bold; color: #ffffff;">Product</h1>
                                     </div>
                                 </div>
                                 <div class="row mt-4">
@@ -142,7 +154,7 @@
                                                 <label class="form-check-label" for="statusProductFG">FG</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="status_product" id="statusProductGOOD" value="FG" {{ isset($inventory) && $inventory->status_product == 'GOOD' ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="status_product" id="statusProductGOOD" value="GOOD" {{ isset($inventory) && $inventory->status_product == 'GOOD' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="statusProductGOOD">GOOD</label>
                                             </div>
                                         </div>
@@ -164,9 +176,9 @@
                                                 <td><input type="number" class="form-control" id="grandTotal" name="grand_total" value="{{ $inventory->grand_total ?? '' }}" readonly></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="number" class="form-control" id="qtyPerBox2" name="qty_package2" value="{{ $inventory->null ?? '' }}"></td>
+                                                <td><input type="number" class="form-control" id="qtyPerBox2" name="qty_package2" value="{{ $inventory->qty_package2 ?? '' }}"></td>
                                                 <td><input type="number" class="form-control" id="qtyBoxTotal2" name="qtybox2" value="{{ $inventory->qtybox2 ?? '' }}"></td>
-                                                <td><input type="number" class="form-control" id="total2" name="total2" value="{{ $inventory->null ?? '' }}" readonly></td>
+                                                <td><input type="number" class="form-control" id="total2" name="total2" value="{{ $inventory->total2 ?? '' }}" readonly></td>
                                                 <td colspan="4" class="text-center" style="color: red; font-size: 1.4rem;"><small>Item Kecil Jika Ada</small></td>
                                             </tr>
                                         </tbody>
@@ -174,7 +186,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <label for="issueDate" class="form-label">STO Periode</label>
-                                            <input type="text" class="form-control" id="issueDate" name="issue_date" value="{{ $inventory->issue_date ?? '' }}">
+                                            <input type="text" class="form-control" id="issueDate" name="issue_date" value="{{ $inventory->issue_date ?? '' }}"readonly>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="preparedBy" class="form-label">Prepared By</label>
@@ -184,25 +196,12 @@
                                             <label for="checkedBy" class="form-label">Checked By</label>
                                             <input type="text" class="form-control" id="checkedBy" name="checked_by" value="{{ $admin->username ?? '' }}">
                                         </div>
-                                    </div>
-                                    <div class="row mb-3 text-center">
                                         <div class="col-md-3">
                                             <label for="locationDetail" class="form-label d-block">Detail Lokasi Name</label>
-                                            <input type="text" class="form-control" id="locationDetail" name="detail_lokasi" value="{{ $inventory->detail_lokasi ?? '' }}" readonly>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="locationDetail" class="form-label d-block">Detail Lokasi Name</label>
-                                            <input type="text" class="form-control" id="locationDetail" name="detail_lokasi2" value="{{ $inventory->null ?? '' }}">
+                                            <input type="text" class="form-control" id="locationDetail" name="detail_lokasi2" value="{{ $inventory->detail_lokasi2 ?? '' }}">
                                             <label for="locationDetail" class="form-label d-block" style="color: red; font-size: 1rem;">(Item Jika Berbeda Rak)</label>
                                         </div>
-                                        <div class="col-md-3">
-                                            <label for="plant" class="form-label d-block">Plant</label>
-                                            <input type="text" class="form-control" id="plant" name="plant" value="{{ $inventory->plant ?? '' }}" readonly>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="userId" class="form-label d-block">ID Card Number</label>
-                                            <input type="text" class="form-control" id="userId" name="id_card_number" value="{{ $user->id_card_number ?? '' }}">
-                                        </div>
+                                    </div>
                                     </div>
                                     <div class="text-center d-flex justify-content-center">
                                 <button class="btn btn-success btn-lg me-2" type="button" onclick="confirmSave()">Save</button>
@@ -210,6 +209,9 @@
                             </div>
                         </div>
                     </div>
+                         <footer class="text-center mt-4">
+                        <p>&copy; STO MANAGEMENT 2025</p>
+                 </footer>
                 </div>
             </div>
         </form>
@@ -241,8 +243,8 @@
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        // Redirect to the reports.index page
-                        window.location.href = "{{ route('reports.index') }}";
+                        // Redirect to the sto.index page
+                        window.location.href = "{{ route('sto.index') }}";
                     });
                 }
             });
