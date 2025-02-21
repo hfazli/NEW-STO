@@ -62,6 +62,7 @@
     }
 
     function onScanSuccess(decodedText) {
+      decodedText = decodedText.slice(0, 6);
       console.log(`Code matched: ${decodedText}`);
       // Set the scanned text to the input field
       document.getElementById('inventory_id').value = decodedText;

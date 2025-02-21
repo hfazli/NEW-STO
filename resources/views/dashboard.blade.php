@@ -69,7 +69,7 @@
                   <label for="custSelect">Select Customer</label>
                   <select id="custSelect" class="form-control">
                     @foreach ($customers as $customer)
-                      <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                      <option value="{{ $customer->name }}">{{ $customer->name }}</option>
                     @endforeach
                   </select>
                 </div>
