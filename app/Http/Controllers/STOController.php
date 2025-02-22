@@ -49,15 +49,16 @@ class STOController extends Controller
       'inventory_id' => 'required|exists:inventory,inventory_id',
       'issued_date' => 'required|date',
       'prepared_by' => 'required|exists:users,id',
-      'checked_by' => 'nullable',
+      'checked_by' => 'nullable|string',
       'status' => 'required|string',
       'qty_per_box' => 'required|integer',
       'qty_box' => 'required|integer',
       'total' => 'required|integer',
+      'qty_per_box_2' => 'nullable|integer',
+      'qty_box_2' => 'nullable|integer',
+      'total_2' => 'nullable|integer',
       'grand_total' => 'required|integer',
     ]);
-
-    $validatedData['user_id'] = auth()->id();
 
     // Create and save the report
     $reportSTO = ReportSTO::create($validatedData);

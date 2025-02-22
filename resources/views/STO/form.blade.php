@@ -70,44 +70,43 @@
               <h6 class="mb-3 text-center">Quantity Details</h6>
               <div class="row">
                 <div class="mb-3 col-md-3">
-                  <label for="old_qty_per_box" class="col-form-label">Qty/Box</label>
-                  <input type="number" id="old_qty_per_box" name="old_qty_per_box" class="form-control"
-                    placeholder="Enter quantity per box"
-                    value="{{ old('old_qty_per_box', $last_report->qty_per_box ?? '0') }}">
+                  <label for="qty_per_box" class="col-form-label">Qty/Box</label>
+                  <input type="number" id="qty_per_box" name="qty_per_box" class="form-control"
+                    placeholder="Enter quantity per box" required
+                    value="{{ old('qty_per_box', $inventory->qty_package ?? '') }}">
                 </div>
                 <div class="mb-3 col-md-3">
-                  <label for="old_qty_box" class="col-form-label">Qty Box</label>
-                  <input type="number" id="old_qty_box" name="old_qty_box" class="form-control"
-                    value="{{ old('old_qty_per_box', $last_report->qty_box ?? '0') }}">
+                  <label for="qty_box" class="col-form-label">Qty Box</label>
+                  <input type="number" id="qty_box" name="qty_box" class="form-control" required
+                    placeholder="Enter box quantity">
                 </div>
                 <div class="mb-3 col-md-3">
-                  <label for="old_total" class="col-form-label">Total</label>
-                  <input type="number" id="old_total" name="old_total" class="form-control" placeholder="Total"
-                    value="{{ old('old_qty_per_box', $last_report->total ?? ($inventory->stok_awal ?? '0')) }}" readonly>
+                  <label for="total" class="col-form-label">Total</label>
+                  <input type="number" id="total" name="total" class="form-control" placeholder="Total" readonly>
                 </div>
+
                 <div class="mb-3 col-md-3">
                   <label for="grand_total" class="col-form-label">Grand Total</label>
                   <input required type="number" id="grand_total" name="grand_total" class="form-control"
                     placeholder="Total" readonly>
                 </div>
               </div>
-              <!-- New Value -->
+              <!-- Second Value -->
               <div class="row">
                 <div class="mb-3 col-md-3">
-                  {{-- <label for="qty_per_box" class="col-form-label">Qty/Box</label> --}}
-                  <input type="number" id="qty_per_box" name="qty_per_box" class="form-control"
-                    placeholder="Enter quantity per box" required
-                    value="{{ old('qty_per_box', $inventory->qty_package ?? '') }}">
+                  {{-- <label for="qty_per_box_2" class="col-form-label">Qty/Box</label> --}}
+                  <input type="number" id="qty_per_box_2" name="qty_per_box_2" class="form-control"
+                    placeholder="Enter quantity per box" value="{{ old('qty_per_box_2') }}">
                 </div>
                 <div class="mb-3 col-md-3">
-                  {{-- <label for="qty_box" class="col-form-label">Qty Box</label> --}}
-                  <input type="number" id="qty_box" name="qty_box" class="form-control" required
-                    placeholder="Enter box quantity">
+                  {{-- <label for="qty_box_2" class="col-form-label">Qty Box</label> --}}
+                  <input type="number" id="qty_box_2" name="qty_box_2" class="form-control"
+                    value="{{ old('qty_per_box_2') }}">
                 </div>
                 <div class="mb-3 col-md-3">
-                  {{-- <label for="total" class="col-form-label">Total</label> --}}
-                  <input type="number" id="total" name="total" class="form-control" placeholder="Total"
-                    readonly>
+                  {{-- <label for="total_2" class="col-form-label">Total</label> --}}
+                  <input type="number" id="total_2" name="total_2" class="form-control" placeholder="Total"
+                    value="{{ old('qty_per_box_2') }}" readonly>
                 </div>
                 <div class="mb-3 col-md-3">
                   <div class="text-center text-danger p-2">
@@ -138,7 +137,7 @@
               <div class="mb-3 col-md-4">
                 <label for="checked_by" class="col-form-label">Checked By</label>
                 <input type="text" id="checked_by" name="checked_by" class="form-control" placeholder="Enter name"
-                  value="{{ old('checked_by') }}" disabled>
+                  value="{{ old('checked_by') }}">
               </div>
             </div>
 
@@ -157,24 +156,24 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       function calculateTotals() {
-        let oldQtyPerBox = parseFloat(document.getElementById("old_qty_per_box").value) || 0;
-        let oldQtyBox = parseFloat(document.getElementById("old_qty_box").value) || 0;
+        let QtyPerBox2 = parseFloat(document.getElementById("qty_per_box_2").value) || 0;
+        let QtyBox2 = parseFloat(document.getElementById("qty_box_2").value) || 0;
         let qtyPerBox = parseFloat(document.getElementById("qty_per_box").value) || 0;
         let qtyBox = parseFloat(document.getElementById("qty_box").value) || 0;
 
         // Calculate totals
-        let oldTotal = oldQtyPerBox * oldQtyBox;
+        let Total2 = QtyPerBox2 * QtyBox2;
         let total = qtyPerBox * qtyBox;
-        let grandTotal = oldTotal + total;
+        let grandTotal = Total2 + total;
 
         // Update the input fields
-        document.getElementById("old_total").value = oldTotal;
+        document.getElementById("total_2").value = Total2;
         document.getElementById("total").value = total;
         document.getElementById("grand_total").value = grandTotal;
       }
 
       // Attach event listeners to inputs
-      let inputs = document.querySelectorAll("#old_qty_per_box, #old_qty_box, #qty_per_box, #qty_box");
+      let inputs = document.querySelectorAll("#qty_per_box_2, #qty_box_2, #qty_per_box, #qty_box");
       inputs.forEach(input => {
         input.addEventListener("input", calculateTotals);
       });

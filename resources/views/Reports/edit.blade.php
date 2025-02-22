@@ -30,8 +30,9 @@
         @endif
         <!-- Custom Styled Validation -->
         <form class="row g-3 needs-validation" novalidate enctype="multipart/form-data" method="POST"
-          action="{{ route('sto.store', $report->inventory->inventory_id) }}">
+          action="{{ route('reports.edit', $report->id) }}">
           @csrf
+          @method('PUT')
 
           <!-- Part Name -->
           <div class="col-md-6">
@@ -95,32 +96,40 @@
           <div class="col-12 border rounded p-3">
             <h6 class="text-center">Quantity Details</h6>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="qty_per_box" class="form-label">Qty/Box</label>
                 <input type="number" id="qty_per_box" name="qty_per_box" class="form-control" required
                   placeholder="Enter quantity per box" value="{{ old('qty_per_box', $report->qty_per_box ?? '') }}">
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="qty_box" class="form-label">Qty Box</label>
                 <input type="number" id="qty_box" name="qty_box" class="form-control" required
                   value="{{ old('qty_box', $report->qty_box ?? '') }}">
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="total" class="form-label">Total</label>
                 <input type="number" id="total" name="total" class="form-control"
                   value="{{ old('total', $report->total ?? '') }}" readonly>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <label for="old_total" class="form-label">Total Before</label>
-                <input type="number" id="old_total" name="old_total" class="form-control"
-                  value="{{ old('old_total', $report->grand_total - $report->total ?? '') }}" readonly>
-              </div>
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <label for="grand_total" class="form-label">Grand Total</label>
                 <input type="number" id="grand_total" name="grand_total" class="form-control" required
                   value="{{ old('grand_total', $report->grand_total ?? '') }}" readonly>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-3">
+                <input type="number" id="qty_per_box_2" name="qty_per_box_2" class="form-control" required
+                  placeholder="Enter quantity per box"
+                  value="{{ old('qty_per_box_2', $report->qty_per_box_2 ?? '') }}">
+              </div>
+              <div class="col-md-3">
+                <input type="number" id="qty_box_2" name="qty_box_2" class="form-control" required
+                  value="{{ old('qty_box_2', $report->qty_box_2 ?? '') }}">
+              </div>
+              <div class="col-md-3">
+                <input type="number" id="total_2" name="total_2" class="form-control"
+                  value="{{ old('total_2', $report->total_2 ?? '') }}" readonly>
               </div>
             </div>
           </div>
@@ -144,10 +153,8 @@
           <div class="col-md-4">
             <label for="checked_by" class="form-label">Checked By</label>
             <div class="d-flex align-items-center">
-              <input type="checkbox" id="checked_by_checkbox" class="form-check-input me-2">
               <input type="text" id="checked_by" name="checked_by" class="form-control"
-                value="{{ old('checked_by') }}" hidden>
-              <input type="text" id="checker" name="checker" class="form-control" value="{{ old('checker') }}">
+                value="{{ old('checked_by', $report->checked_by) }}">
             </div>
           </div>
 
@@ -165,22 +172,24 @@
 @section('script')
   <script>
     function calculateTotals() {
-      let oldTotal = parseFloat(document.getElementById("old_total").value) || 0;
       let qtyPerBox = parseFloat(document.getElementById("qty_per_box").value) || 0;
       let qtyBox = parseFloat(document.getElementById("qty_box").value) || 0;
+      let qtyPerBox2 = parseFloat(document.getElementById("qty_per_box_2").value) || 0;
+      let qtyBox2 = parseFloat(document.getElementById("qty_box_2").value) || 0;
 
       // Calculate totals
+      let oldTotal = qtyPerBox2 * qtyBox2;
       let total = qtyPerBox * qtyBox;
       let grandTotal = oldTotal + total;
 
       // Update the input fields
-      document.getElementById("old_total").value = oldTotal;
+      document.getElementById("total_2").value = oldTotal;
       document.getElementById("total").value = total;
       document.getElementById("grand_total").value = grandTotal;
     }
 
     // Attach event listeners to inputs
-    let inputs = document.querySelectorAll("#old_total, #qty_per_box, #qty_box");
+    let inputs = document.querySelectorAll("#qty_per_box_2, #qty_box_2, #qty_per_box, #qty_box");
     inputs.forEach(input => {
       input.addEventListener("input", calculateTotals);
     });

@@ -74,4 +74,27 @@ class ReportController extends Controller
 
     return back()->with('success', 'Report Berhasil Dihapus');
   }
+
+  public function update(Request $request, $id)
+  {
+    $validatedData = $request->validate([
+      'inventory_id' => 'required|exists:inventory,inventory_id',
+      'issued_date' => 'required|date',
+      'prepared_by' => 'required|string',
+      'checked_by' => 'nullable|string',
+      'status' => 'required|string',
+      'qty_per_box' => 'required|integer',
+      'qty_box' => 'required|integer',
+      'total' => 'required|integer',
+      'qty_per_box_2' => 'nullable|integer',
+      'qty_box_2' => 'nullable|integer',
+      'total_2' => 'nullable|integer',
+      'grand_total' => 'required|integer',
+    ]);
+
+    $reportSTO = ReportSTO::findOrFail($id);
+    $reportSTO->update($validatedData);
+
+    return redirect()->route('reports.index')->with('success', "Report STO with Inventory ID {$reportSTO->inventory_id} updated successfully.");
+  }
 }

@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
 Route::delete('/reports/{id}/destroy', [ReportController::class, 'delete'])->name('reports.destroy');
 Route::get('/reports/fg', [ReportController::class, 'index'])->name('reports.fg');
 Route::get('/reports/{id}/edit', [ReportController::class, 'edit'])->name('reports.edit');
+Route::put('/reports/{id}/edit', [ReportController::class, 'update'])->name('reports.update');
 Route::get('/reports/{id}/print', [ReportController::class, 'print'])->name('reports.print');
 // FETCH DATA FOR CHARTS
 Route::get('/fetch-report-sto', [DashboardController::class, 'reportSto'])->name('dashboard.sto');

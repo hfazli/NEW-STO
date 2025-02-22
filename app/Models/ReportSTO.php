@@ -20,6 +20,9 @@ class ReportSTO extends Model
     'qty_per_box',
     'qty_box',
     'total',
+    'qty_per_box_2',
+    'qty_box_2',
+    'total_2',
     'grand_total'
   ];
 
